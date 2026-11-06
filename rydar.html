@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heavy Music Release Rydar</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Outfit', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-red-600 selection:text-white">
+
+    <!-- Header -->
+    <header class="border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <div class="bg-red-600 p-2.5 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
+                        Release Rydar <span class="text-xs bg-red-600/20 text-red-500 border border-red-600/40 px-2 py-0.5 rounded-full mono">NOV 6, 2026</span>
+                    </h1>
+                    <p class="text-xs text-zinc-400">Metal • Hardcore • Death Metal • Shoegaze • Post-Rock • Post-Metal</p>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                <button onclick="openInstallModal()" class="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
+                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Install App
+                </button>
+                <button onclick="shareApp()" class="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition shadow-lg shadow-red-600/20 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                    Share Rydar
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        
+        <!-- Left Sidebar: Filters & Followed Bands -->
+        <div class="lg:col-span-1 space-y-6">
+            <!-- Search & Date Filter -->
+            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-4">
+                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Filter Releases</h2>
+                
+                <div class="relative">
+                    <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-[11px] text-zinc-400 font-medium">Release Date Filter</label>
+                    <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
+                        <option value="today">Released Today (Nov 6, 2026)</option>
+                        <option value="week">This Week</option>
+                        <option value="all">All Recent Drops</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Followed Bands Manager -->
+            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Followed Bands</h2>
+                    <span id="followedCount" class="text-xs bg-red-600/20 text-red-400 px-2 py-0.5 rounded-full mono font-bold">0</span>
+                </div>
+                
+                <div class="flex gap-2">
+                    <input type="text" id="newBandInput" placeholder="Add band name..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+                    <button onclick="addCustomBand()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">+</button>
+                </div>
+
+                <div id="followedBandsList" class="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto pr-1">
+                    <!-- Dynamic followed bands chips -->
+                </div>
+            </div>
+
+            <!-- Notification Center Log -->
+            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-3">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Alert Center</h2>
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                </div>
+                <div id="notificationLog" class="space-y-2 text-xs text-zinc-400 max-h-40 overflow-y-auto pr-1">
+                    <div class="p-2 rounded-lg bg-zinc-950 border border-zinc-800/50">
+                        <span class="text-red-400 font-bold">System:</span> Rydar active for November 6, 2026 drops.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Feed -->
+        <div class="lg:col-span-3 space-y-6">
+            
+            <!-- Genre Filter Pills -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+                <button onclick="filterGenre('All')" class="genre-btn bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20" data-genre="All">All Genres</button>
+                <button onclick="filterGenre('Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Hardcore">Hardcore</button>
+                <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
+                <button onclick="filterGenre('Black Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Black Metal">Black Metal</button>
+                <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
+                <button onclick="filterGenre('Post-Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Hardcore">Post-Hardcore</button>
+                <button onclick="filterGenre('Shoegaze')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Shoegaze">Shoegaze</button>
+                <button onclick="filterGenre('Post-Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Rock">Post-Rock</button>
+                <button onclick="filterGenre('Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Rock">Rock</button>
+            </div>
+
+            <!-- Releases Grid -->
+            <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Dynamically populated release cards -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Install Modal -->
+    <div id="installModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl">
+            <div class="flex items-center justify-between">
+                <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    Install to Home Screen
+                </h3>
+                <button onclick="closeInstallModal()" class="text-zinc-400 hover:text-white text-xl font-bold">&times;</button>
+            </div>
+            <div class="space-y-4 text-sm text-zinc-300">
+                <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800">
+                    <p class="font-bold text-red-400 mb-1">📱 iPhone / iPad (Safari):</p>
+                    <p class="text-xs text-zinc-400">1. Open this file in <span class="text-white font-semibold">Safari</span>.<br>2. Tap the <span class="text-white font-semibold">Share</span> icon.<br>3. Tap <span class="text-white font-semibold">"Add to Home Screen"</span>.</p>
+                </div>
+                <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800">
+                    <p class="font-bold text-red-400 mb-1">🤖 Android (Chrome):</p>
+                    <p class="text-xs text-zinc-400">1. Open this file in <span class="text-white font-semibold">Chrome</span>.<br>2. Tap the <span class="text-white font-semibold">three-dot menu</span>.<br>3. Tap <span class="text-white font-semibold">"Add to Home screen"</span> or <span class="text-white font-semibold">"Install app"</span>.</p>
+                </div>
+            </div>
+            <button onclick="closeInstallModal()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition cursor-pointer">Got It</button>
+        </div>
+    </div>
+
+    <!-- JavaScript Application Logic -->
+    <script>
+        const releasesData = [
+            {
+                id: 1,
+                band: "Cult of Luna",
+                album: "The Beyond Echoes",
+                genre: "Post-Metal",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-stone-900 to-zinc-950",
+                accent: "text-stone-300"
+            },
+            {
+                id: 2,
+                band: "Carnifex",
+                album: "More Than Misery",
+                genre: "Death Metal",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-red-950 to-zinc-950",
+                accent: "text-red-500"
+            },
+            {
+                id: 3,
+                band: "Hatebreed",
+                album: "Fatal Paradox",
+                genre: "Hardcore",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-amber-950 to-zinc-950",
+                accent: "text-amber-500"
+            },
+            {
+                id: 4,
+                band: "Thrown",
+                album: "Unwanted",
+                genre: "Hardcore",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-zinc-900 to-zinc-950",
+                accent: "text-zinc-300"
+            },
+            {
+                id: 5,
+                band: "Underdark",
+                album: "O Come Forth Annihilation",
+                genre: "Black Metal",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-purple-950 to-zinc-950",
+                accent: "text-purple-400"
+            },
+            {
+                id: 6,
+                band: "Absolute Power",
+                album: "Needs Must When The Devil Drives",
+                genre: "Hardcore",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-blue-950 to-zinc-950",
+                accent: "text-blue-400"
+            },
+            {
+                id: 7,
+                band: "Comeback Kid",
+                album: "Chosen Hell",
+                genre: "Hardcore",
+                type: "Single",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-emerald-950 to-zinc-950",
+                accent: "text-emerald-400"
+            },
+            {
+                id: 8,
+                band: "Extol",
+                album: "Aura Of Decay",
+                genre: "Metal",
+                type: "Album",
+                date: "2026-11-06",
+                isToday: true,
+                artUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-indigo-950 to-zinc-950",
+                accent: "text-indigo-400"
+            },
+            {
+                id: 9,
+                band: "Deafheaven",
+                album: "Infinite Sunset",
+                genre: "Shoegaze",
+                type: "Single",
+                date: "2026-11-04",
+                isToday: false,
+                artUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-pink-950 to-zinc-950",
+                accent: "text-pink-400"
+            },
+            {
+                id: 10,
+                band: "Russian Circles",
+                album: "Tidal Convergence",
+                genre: "Post-Rock",
+                type: "Album",
+                date: "2026-11-03",
+                isToday: false,
+                artUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-teal-950 to-zinc-950",
+                accent: "text-teal-400"
+            }
+        ];
+
+        let followedBands = JSON.parse(localStorage.getItem('heavy_followed_bands')) || ["Cult of Luna", "Carnifex", "Hatebreed", "Underdark", "Comeback Kid"];
+        let currentGenre = "All";
+
+        function initApp() {
+            renderFollowedBands();
+            filterReleases();
+            checkNotifications();
+        }
+
+        function renderFollowedBands() {
+            const listEl = document.getElementById('followedBandsList');
+            const countEl = document.getElementById('followedCount');
+            countEl.textContent = followedBands.length;
+
+            if (followedBands.length === 0) {
+                listEl.innerHTML = `<p class="text-xs text-zinc-500 italic py-1">No bands followed yet. Follow bands below to get instant drop alerts!</p>`;
+                return;
+            }
+
+            listEl.innerHTML = followedBands.map(band => `
+                <span class="inline-flex items-center gap-1.5 bg-zinc-950 border border-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg text-xs font-medium">
+                    ${band}
+                    <button onclick="toggleFollow('${band}')" class="text-zinc-500 hover:text-red-400 font-bold">&times;</button>
+                </span>
+            `).join('');
+
+            localStorage.setItem('heavy_followed_bands', JSON.stringify(followedBands));
+        }
+
+        function toggleFollow(bandName) {
+            if (followedBands.includes(bandName)) {
+                followedBands = followedBands.filter(b => b !== bandName);
+                logNotification(`Unfollowed ${bandName}`, 'text-zinc-400');
+            } else {
+                followedBands.push(bandName);
+                logNotification(`Now tracking new releases from ${bandName}!`, 'text-emerald-400');
+            }
+            renderFollowedBands();
+            filterReleases();
+        }
+
+        function addCustomBand() {
+            const input = document.getElementById('newBandInput');
+            const name = input.value.trim();
+            if (name && !followedBands.includes(name)) {
+                followedBands.push(name);
+                input.value = "";
+                renderFollowedBands();
+                logNotification(`Added ${name} to Rydar tracker.`, 'text-emerald-400');
+                filterReleases();
+            }
+        }
+
+        function filterGenre(genre) {
+            currentGenre = genre;
+            document.querySelectorAll('.genre-btn').forEach(btn => {
+                if (btn.dataset.genre === genre) {
+                    btn.className = "genre-btn bg-red-600 text-white px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20";
+                } else {
+                    btn.className = "genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-4 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap";
+                }
+            });
+            filterReleases();
+        }
+
+        function filterReleases() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const dateFilter = document.getElementById('dateFilter').value;
+            const grid = document.getElementById('releasesGrid');
+
+            const filtered = releasesData.filter(item => {
+                const matchesGenre = currentGenre === "All" || item.genre.toLowerCase() === currentGenre.toLowerCase();
+                const matchesSearch = item.band.toLowerCase().includes(search) || item.album.toLowerCase().includes(search);
+                
+                let matchesDate = true;
+                if (dateFilter === 'today') matchesDate = item.isToday;
+                else if (dateFilter === 'week') matchesDate = true;
+
+                return matchesGenre && matchesSearch && matchesDate;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl">
+                        <p class="text-sm text-zinc-400">No releases found matching your filters.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(item => {
+                const isFollowed = followedBands.includes(item.band);
+                return `
+                    <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
+                        <div>
+                            <div class="flex items-start gap-4 mb-3">
+                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center">
+                                    <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center gap-2 mb-1">
+                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md bg-zinc-950 border border-zinc-800 text-zinc-400">${item.genre}</span>
+                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md ${item.isToday ? 'bg-red-600/20 text-red-400 border border-red-600/40 font-bold' : 'bg-zinc-950 text-zinc-500'}">${item.date}</span>
+                                    </div>
+                                    <h3 class="font-bold text-white text-base truncate">${item.band}</h3>
+                                    <p class="text-xs text-zinc-400 truncate italic">${item.album}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-3 border-t border-zinc-800/60 mt-4">
+                            <button onclick="toggleFollow('${item.band}')" class="text-xs font-semibold px-3 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer ${isFollowed ? 'bg-red-600/20 border-red-600/40 text-red-400' : 'bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-800'}">
+                                ${isFollowed ? '✓ Following' : '+ Follow Band'}
+                            </button>
+                            <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
+                                Listen 🎧
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function checkNotifications() {
+            const todayDrops = releasesData.filter(r => r.isToday && followedBands.includes(r.band));
+            if (todayDrops.length > 0) {
+                todayDrops.forEach(drop => {
+                    logNotification(`🔥 NEW DROP TODAY: ${drop.band} - "${drop.album}" is out now!`, 'text-red-400 font-bold');
+                });
+            }
+        }
+
+        function logNotification(text, className = 'text-zinc-400') {
+            const log = document.getElementById('notificationLog');
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const item = document.createElement('div');
+            item.className = `p-2 rounded-lg bg-zinc-950 border border-zinc-800/50 ${className}`;
+            item.innerHTML = `<span class="text-[10px] text-zinc-500 mono">[${time}]</span> ${text}`;
+            log.prepend(item);
+        }
+
+        function openInstallModal() {
+            document.getElementById('installModal').classList.remove('hidden');
+        }
+
+        function closeInstallModal() {
+            document.getElementById('installModal').classList.add('hidden');
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Heavy Music Release Rydar',
+                    text: 'Check out daily new metal, hardcore, and post-metal album releases with Release Rydar!',
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Rydar link copied to clipboard! Share it with your friends.");
+            }
+        }
+
+        window.onload = initApp;
+    </script>
+</body>
+</html>
