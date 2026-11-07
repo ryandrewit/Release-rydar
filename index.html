@@ -187,9 +187,9 @@
                 return `
                     <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-3.5 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
                         <div class="flex items-start gap-3">
-                            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
-                                <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                                ${isUpcoming ? '<span class="absolute top-0.5 right-0.5 bg-amber-500 text-zinc-950 font-black text-[8px] px-1.5 py-0.5 rounded shadow">SOON</span>' : ''}
+                            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-700/60 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
+                                <span class="text-zinc-200 font-black text-xs tracking-wider mono">${item.icon || 'RR'}</span>
+                                ${isUpcoming ? '<span class="absolute top-0.5 right-0.5 bg-amber-500 text-zinc-950 font-black text-[7px] px-1 py-0.2 rounded shadow">SOON</span>' : ''}
                             </div>
                             
                             <div class="flex-1 min-w-0">
