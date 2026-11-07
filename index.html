@@ -19,7 +19,6 @@
     <header class="border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <!-- Custom RR Monogram Icon -->
                 <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center border border-red-500/40">
                     <span class="text-white font-black text-base tracking-tighter mono">RR</span>
                 </div>
@@ -46,7 +45,7 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
         
-        <!-- Collapsible Controls Dropdown Drawer (Search & Filters Only) -->
+        <!-- Controls Dropdown -->
         <details class="group bg-zinc-950/60 border border-zinc-800/80 rounded-2xl backdrop-blur-sm overflow-hidden transition">
             <summary class="px-5 py-3.5 flex items-center justify-between cursor-pointer select-none bg-zinc-900/40 hover:bg-zinc-900/70 transition">
                 <div class="flex items-center gap-2.5">
@@ -57,7 +56,6 @@
             </summary>
             
             <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-zinc-800/60">
-                <!-- Search Filter -->
                 <div class="space-y-2">
                     <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Search Band / Album</label>
                     <div class="relative">
@@ -65,7 +63,6 @@
                     </div>
                 </div>
 
-                <!-- Date Filter -->
                 <div class="space-y-2">
                     <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Release Date Filter</label>
                     <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
@@ -84,16 +81,14 @@
             <button onclick="filterGenre('Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metal">Metal</button>
             <button onclick="filterGenre('Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Hardcore">Hardcore</button>
             <button onclick="filterGenre('Metalcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metalcore">Metalcore</button>
-            <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
+            <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
             <button onclick="filterGenre('Doom Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Doom Metal">Doom Metal</button>
             <button onclick="filterGenre('Djent / Prog')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Djent / Prog">Djent / Prog</button>
             <button onclick="filterGenre('Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Rock">Rock</button>
         </div>
 
         <!-- Releases Grid -->
-        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
-            <!-- Dynamically populated release cards -->
-        </div>
+        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
     </main>
 
     <!-- Install Modal -->
@@ -120,174 +115,27 @@
         </div>
     </div>
 
-    <!-- JavaScript Application Logic -->
+    <!-- Application Logic -->
     <script>
         const todayObj = new Date("2026-11-07");
         document.getElementById('headerDateBadge').textContent = todayObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
 
-        const releasesData = [
-            // Released This Week (Nov 6, 2026)
-            {
-                id: 1,
-                band: "Absolute Power",
-                album: "Needs Must When The Devil Drives",
-                genre: "Hardcore",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-stone-900 to-zinc-950"
-            },
-            {
-                id: 2,
-                band: "Konvent",
-                album: "Firesky",
-                genre: "Doom Metal",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-amber-950 to-zinc-950"
-            },
-            {
-                id: 3,
-                band: "Hyperion",
-                album: "Elysia",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-red-950 to-zinc-950"
-            },
-            {
-                id: 4,
-                band: "Prong",
-                album: "Prong",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-zinc-900 to-zinc-950"
-            },
-            {
-                id: 5,
-                band: "Afterlife",
-                album: "The Pain That Shapes Us",
-                genre: "Metalcore",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-purple-950 to-zinc-950"
-            },
-            {
-                id: 6,
-                band: "Night Cobra",
-                album: "Beware the Dark Future",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-06",
-                status: "recent",
-                artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-teal-950 to-zinc-950"
-            },
-            // Upcoming November 2026 Releases
-            {
-                id: 7,
-                band: "Yngwie Malmsteen",
-                album: "Hell Or High Water",
-                genre: "Rock",
-                type: "Album",
-                date: "2026-11-11",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-amber-900 to-zinc-950"
-            },
-            {
-                id: 8,
-                band: "Iron Savior",
-                album: "Deathbringer",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-12",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-indigo-950 to-zinc-950"
-            },
-            {
-                id: 9,
-                band: "Artificial Brain",
-                album: "Antillia",
-                genre: "Death Metal",
-                type: "Album",
-                date: "2026-11-13",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-blue-950 to-zinc-950"
-            },
-            {
-                id: 10,
-                band: "Wolf",
-                album: "Hour Of The Wolf",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-14",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-cyan-950 to-zinc-950"
-            },
-            {
-                id: 11,
-                band: "Angelus Apatrida",
-                album: "The Reckoning EP",
-                genre: "Metal",
-                type: "EP",
-                date: "2026-11-20",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-red-950 to-zinc-950"
-            },
-            {
-                id: 12,
-                band: "Down",
-                album: "Volume V",
-                genre: "Doom Metal",
-                type: "Album",
-                date: "2026-11-20",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-stone-900 to-zinc-950"
-            },
-            {
-                id: 13,
-                band: "Trivium",
-                album: "Crown In The Grave",
-                genre: "Metal",
-                type: "Album",
-                date: "2026-11-20",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-emerald-950 to-zinc-950"
-            },
-            {
-                id: 14,
-                band: "Neal Morse & The Resonance",
-                album: "River Of Light",
-                genre: "Djent / Prog",
-                type: "Album",
-                date: "2026-11-27",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-zinc-900 to-zinc-950"
-            }
-        ];
-
+        let releasesData = [];
         let currentGenre = "All";
 
-        function initApp() {
-            filterReleases();
+        async function initApp() {
+            try {
+                const response = await fetch('releases.json?' + new Date().getTime());
+                releasesData = await response.json();
+                filterReleases();
+            } catch (error) {
+                console.error("Error loading live feed:", error);
+                document.getElementById('releasesGrid').innerHTML = `
+                    <div class="col-span-full py-12 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl">
+                        <p class="text-sm text-zinc-400">Failed to load live release feed.</p>
+                    </div>
+                `;
+            }
         }
 
         function filterGenre(genre) {
@@ -339,17 +187,15 @@
                 return `
                     <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-3.5 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
                         <div class="flex items-start gap-3">
-                            <!-- Artwork Thumbnail -->
                             <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
                                 <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
                                 ${isUpcoming ? '<span class="absolute top-0.5 right-0.5 bg-amber-500 text-zinc-950 font-black text-[8px] px-1.5 py-0.5 rounded shadow">SOON</span>' : ''}
                             </div>
                             
-                            <!-- Band Info & Spotify Button right next to artwork -->
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between gap-1 mb-0.5">
                                     <span class="text-[9px] mono uppercase px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 truncate">${item.genre}</span>
-                                    <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-[10px] font-bold bg-green-600/20 hover:bg-green-600/30 text-green-400 border border-green-600/40 px-2 py-0.5 rounded-lg transition flex items-center gap-1 shrink-0">
+                                    <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-[10px] font-bold bg-green-600/25 hover:bg-green-600/40 text-green-400 border border-green-600/40 px-2 py-0.5 rounded-lg transition flex items-center gap-1 shrink-0">
                                         Spotify 🎧
                                     </a>
                                 </div>
@@ -367,21 +213,11 @@
             }).join('');
         }
 
-        function openInstallModal() {
-            document.getElementById('installModal').classList.remove('hidden');
-        }
-
-        function closeInstallModal() {
-            document.getElementById('installModal').classList.add('hidden');
-        }
-
+        function openInstallModal() { document.getElementById('installModal').classList.remove('hidden'); }
+        function closeInstallModal() { document.getElementById('installModal').classList.add('hidden'); }
         function shareApp() {
             if (navigator.share) {
-                navigator.share({
-                    title: 'Release Rydar',
-                    text: 'Check out daily new heavy music releases with Release Rydar!',
-                    url: window.location.href,
-                }).catch(() => {});
+                navigator.share({ title: 'Release Rydar', text: 'Check out daily new heavy music releases!', url: window.location.href }).catch(() => {});
             } else {
                 navigator.clipboard.writeText(window.location.href);
                 alert("Rydar link copied to clipboard!");
