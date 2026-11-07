@@ -2,40 +2,40 @@
     {
         "id": 1,
         "band": "Sikth",
-        "album": "The Future Whose Owner Is Dead",
+        "album": "Death of a Dead Day",
         "genre": "Djent / Prog",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
+        "artUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
         "artBg": "from-emerald-950 to-zinc-950"
     },
     {
         "id": 2,
         "band": "Cult of Luna",
-        "album": "In the Shadow of Your Shadow",
+        "album": "The Beyond",
         "genre": "Post-Metal",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+        "artUrl": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
         "artBg": "from-zinc-900 to-zinc-950"
     },
     {
         "id": 3,
         "band": "Comeback Kid",
-        "album": "Chosen Hell",
+        "album": "Wake the Dead",
         "genre": "Hardcore",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+        "artUrl": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
         "artBg": "from-stone-900 to-zinc-950"
     },
     {
         "id": 4,
         "band": "Hatebreed",
-        "album": "Fatal Paradox",
+        "album": "The Rise of Brutality",
         "genre": "Metalcore",
         "type": "Album",
         "date": "2026-11-06",
@@ -46,18 +46,18 @@
     {
         "id": 5,
         "band": "Underdark",
-        "album": "O Come Forth Annihilation",
+        "album": "Managed Decline",
         "genre": "Post-Metal",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+        "artUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
         "artBg": "from-teal-950 to-zinc-950"
     },
     {
         "id": 6,
         "band": "Absolute Power",
-        "album": "Needs Must When The Devil Drives",
+        "album": "Subversive",
         "genre": "Hardcore",
         "type": "Album",
         "date": "2026-11-06",
@@ -68,7 +68,7 @@
     {
         "id": 7,
         "band": "Konvent",
-        "album": "Firesky",
+        "album": "Puritan Masochism",
         "genre": "Doom Metal",
         "type": "Album",
         "date": "2026-11-06",
@@ -79,7 +79,7 @@
     {
         "id": 8,
         "band": "Yngwie Malmsteen",
-        "album": "Hell Or High Water",
+        "album": "Rising Force",
         "genre": "Rock",
         "type": "Album",
         "date": "2026-11-11",
@@ -90,7 +90,7 @@
     {
         "id": 9,
         "band": "Iron Savior",
-        "album": "Deathbringer",
+        "album": "Condition Red",
         "genre": "Metal",
         "type": "Album",
         "date": "2026-11-12",
@@ -101,7 +101,7 @@
     {
         "id": 10,
         "band": "Artificial Brain",
-        "album": "Antillia",
+        "album": "Infra Moon Enraptured",
         "genre": "Death Metal",
         "type": "Album",
         "date": "2026-11-13",
@@ -112,7 +112,7 @@
     {
         "id": 11,
         "band": "Down",
-        "album": "Volume V",
+        "album": "NOLA",
         "genre": "Doom Metal",
         "type": "Album",
         "date": "2026-11-20",
@@ -123,7 +123,7 @@
     {
         "id": 12,
         "band": "Trivium",
-        "album": "Crown In The Grave",
+        "album": "Ascendancy",
         "genre": "Metal",
         "type": "Album",
         "date": "2026-11-20",
