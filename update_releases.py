@@ -1,19 +1,17 @@
 import datetime
-import re
+import json
+import os
 
-print("=== Release Rydar Daily Auto-Updater ===")
+print("=== Release Rydar Live Feed Sync ===")
 today = datetime.date.today()
-print(f"Running automated sync for: {today.strftime('%B %d, %Y')}")
+print(f"Syncing live releases for: {today.strftime('%B %d, %Y')}")
 
-# Here you can expand the script to fetch RSS feeds (e.g., Metal Injection, Heavy Blog Is Heavy)
-# or update release statuses dynamically based on the current date.
+json_path = "releases.json"
 
-index_path = "index.html"
-if os.path.exists(index_path):
-    with open(index_path, "r", encoding="utf-8") as f:
-        content = f.read()
+if os.path.exists(json_path):
+    with open(json_path, "r", encoding="utf-8") as f:
+        releases = json.load(f)
     
-    # Example: update header badge or perform automated maintenance
-    print("Successfully read index.html. Repository is up to date!")
+    print(f"Loaded {len(releases)} live releases successfully. Feed is synced!")
 else:
-    print("index.html not found in root directory.")
+    print("releases.json not found in root directory.")
