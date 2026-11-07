@@ -46,64 +46,34 @@
     <!-- Main Container -->
     <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
         
-        <!-- Collapsible Controls Dropdown Drawer -->
+        <!-- Collapsible Controls Dropdown Drawer (Search & Filters Only) -->
         <details class="group bg-zinc-950/60 border border-zinc-800/80 rounded-2xl backdrop-blur-sm overflow-hidden transition">
             <summary class="px-5 py-3.5 flex items-center justify-between cursor-pointer select-none bg-zinc-900/40 hover:bg-zinc-900/70 transition">
                 <div class="flex items-center gap-2.5">
                     <svg class="w-4 h-4 text-red-500 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-300 mono">Filters, Followed Bands & Alert Center</span>
+                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-300 mono">Search & Release Date Filters</span>
                 </div>
                 <span class="text-[11px] text-zinc-500 mono group-open:hidden">Click to expand</span>
             </summary>
             
-            <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-zinc-800/60">
-                <!-- Search & Date Filter -->
-                <div class="space-y-4">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Filter Releases</h2>
-                    
+            <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-zinc-800/60">
+                <!-- Search Filter -->
+                <div class="space-y-2">
+                    <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Search Band / Album</label>
                     <div class="relative">
-                        <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
-                    </div>
-
-                    <div class="space-y-1">
-                        <label class="text-[11px] text-zinc-400 font-medium">Release Date Filter</label>
-                        <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
-                            <option value="today">Released Today / Recent</option>
-                            <option value="week" selected>This Week</option>
-                            <option value="upcoming">Upcoming This Month 🗓️</option>
-                            <option value="all">All Drops</option>
-                        </select>
+                        <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Type band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
                     </div>
                 </div>
 
-                <!-- Followed Bands Manager -->
-                <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Followed Bands</h2>
-                        <span id="followedCount" class="text-xs bg-red-600/20 text-red-400 px-2 py-0.5 rounded-full mono font-bold">0</span>
-                    </div>
-                    
-                    <div class="flex gap-2">
-                        <input type="text" id="newBandInput" placeholder="Add band name..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
-                        <button onclick="addCustomBand()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">+</button>
-                    </div>
-
-                    <div id="followedBandsList" class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1">
-                        <!-- Dynamic followed bands chips -->
-                    </div>
-                </div>
-
-                <!-- Notification Center Log -->
-                <div class="space-y-3">
-                    <div class="flex items-center justify-between">
-                        <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Alert Center</h2>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    </div>
-                    <div id="notificationLog" class="space-y-2 text-xs text-zinc-400 max-h-32 overflow-y-auto pr-1">
-                        <div class="p-2 rounded-lg bg-zinc-950 border border-zinc-800/50">
-                            <span class="text-red-400 font-bold">System:</span> Rydar active & syncing daily.
-                        </div>
-                    </div>
+                <!-- Date Filter -->
+                <div class="space-y-2">
+                    <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Release Date Filter</label>
+                    <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
+                        <option value="today">Released Today / Recent</option>
+                        <option value="week" selected>This Week</option>
+                        <option value="upcoming">Upcoming Releases 🗓️</option>
+                        <option value="all">All Drops</option>
+                    </select>
                 </div>
             </div>
         </details>
@@ -126,8 +96,8 @@
             <button onclick="filterGenre('Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Rock">Rock</button>
         </div>
 
-        <!-- Releases Grid (Full Width Screen Space) -->
-        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Releases Grid (Full Width Screen Space, Compact Cards) -->
+        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
             <!-- Dynamically populated release cards -->
         </div>
     </main>
@@ -162,7 +132,7 @@
         document.getElementById('headerDateBadge').textContent = todayObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
 
         const releasesData = [
-            // Recent Drops (Today / This Week)
+            // Verified Recent Drops
             {
                 id: 1,
                 band: "Cult of Luna",
@@ -305,112 +275,13 @@
                 status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-teal-950 to-zinc-950"
-            },
-            // Upcoming November 2026 Releases
-            {
-                id: 14,
-                band: "Converge",
-                album: "Blood Moon II",
-                genre: "Post-Hardcore",
-                type: "Album",
-                date: "2026-11-14",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-red-950 to-zinc-950"
-            },
-            {
-                id: 15,
-                band: "Architects",
-                album: "The Sky, The Earth & All Between",
-                genre: "Metalcore",
-                type: "Album",
-                date: "2026-11-21",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-cyan-950 to-zinc-950"
-            },
-            {
-                id: 16,
-                band: "Blood Incantation",
-                album: "Timewave Zero II",
-                genre: "Death Metal",
-                type: "Album",
-                date: "2026-11-28",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-indigo-950 to-zinc-950"
-            },
-            {
-                id: 17,
-                band: "Sleep Token",
-                album: "Even Though I Walk Through The Fire",
-                genre: "Djent / Prog",
-                type: "Album",
-                date: "2026-11-20",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-amber-950 to-zinc-950"
-            },
-            {
-                id: 18,
-                band: "Knocked Loose",
-                album: "And Still I Bleed",
-                genre: "Hardcore",
-                type: "EP",
-                date: "2026-11-15",
-                status: "upcoming",
-                artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-                artBg: "from-stone-900 to-zinc-950"
             }
         ];
 
-        let followedBands = JSON.parse(localStorage.getItem('heavy_followed_bands')) || ["Cult of Luna", "Hatebreed", "Carnifex", "thrown", "Underdark", "Comeback Kid"];
         let currentGenre = "All";
 
         function initApp() {
-            renderFollowedBands();
             filterReleases();
-        }
-
-        function renderFollowedBands() {
-            const listEl = document.getElementById('followedBandsList');
-            const countEl = document.getElementById('followedCount');
-            countEl.textContent = followedBands.length;
-
-            if (followedBands.length === 0) {
-                listEl.innerHTML = `<p class="text-xs text-zinc-500 italic py-1">No bands followed yet.</p>`;
-                return;
-            }
-
-            listEl.innerHTML = followedBands.map(band => `
-                <span class="inline-flex items-center gap-1.5 bg-zinc-950 border border-zinc-800 text-zinc-300 px-2.5 py-1 rounded-lg text-xs font-medium">
-                    ${band}
-                    <button onclick="toggleFollow('${band}')" class="text-zinc-500 hover:text-red-400 font-bold">&times;</button>
-                </span>
-            `).join('');
-
-            localStorage.setItem('heavy_followed_bands', JSON.stringify(followedBands));
-        }
-
-        function toggleFollow(bandName) {
-            if (followedBands.includes(bandName)) {
-                followedBands = followedBands.filter(b => b !== bandName);
-            } else {
-                followedBands.push(bandName);
-            }
-            renderFollowedBands();
-            filterReleases();
-        }
-
-        function addCustomBand() {
-            const input = document.getElementById('newBandInput');
-            const name = input.value.trim();
-            if (name && !followedBands.includes(name)) {
-                followedBands.push(name);
-                input.value = "";
-                renderFollowedBands();
-                filterReleases();
-            }
         }
 
         function filterGenre(genre) {
@@ -451,41 +322,38 @@
             if (filtered.length === 0) {
                 grid.innerHTML = `
                     <div class="col-span-full py-12 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl">
-                        <p class="text-sm text-zinc-400">No releases found matching your filters.</p>
+                        <p class="text-sm text-zinc-400">No releases found matching your filters. (Check back soon for confirmed upcoming drops!)</p>
                     </div>
                 `;
                 return;
             }
 
             grid.innerHTML = filtered.map(item => {
-                const isFollowed = followedBands.includes(item.band);
                 const isUpcoming = item.status === 'upcoming';
                 return `
-                    <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
-                        <div>
-                            <div class="flex items-start gap-4 mb-3">
-                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
-                                    <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
-                                    ${isUpcoming ? '<span class="absolute top-1 right-1 bg-amber-500 text-zinc-950 font-black text-[9px] px-1.5 py-0.5 rounded shadow">SOON</span>' : ''}
+                    <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-3.5 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
+                        <div class="flex items-start gap-3">
+                            <!-- Artwork Thumbnail -->
+                            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
+                                <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                                ${isUpcoming ? '<span class="absolute top-0.5 right-0.5 bg-amber-500 text-zinc-950 font-black text-[8px] px-1 py-0.2 rounded shadow">SOON</span>' : ''}
+                            </div>
+                            
+                            <!-- Band Info & Spotify Button right next to artwork -->
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-1 mb-0.5">
+                                    <span class="text-[9px] mono uppercase px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 truncate">${item.genre}</span>
+                                    <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-[10px] font-bold bg-green-600/20 hover:bg-green-600/30 text-green-400 border border-green-600/40 px-2 py-0.5 rounded-lg transition flex items-center gap-1 shrink-0">
+                                        Spotify 🎧
+                                    </a>
                                 </div>
-                                <div class="flex-1 min-w-0">
-                                    <div class="flex items-center gap-2 mb-1">
-                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md bg-zinc-950 border border-zinc-800 text-zinc-400">${item.genre}</span>
-                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md ${isUpcoming ? 'bg-amber-950/40 text-amber-400 border border-amber-800/50' : 'bg-zinc-950 text-zinc-500'}">${item.date}</span>
-                                    </div>
-                                    <h3 class="font-bold text-white text-base truncate">${item.band}</h3>
-                                    <p class="text-xs text-zinc-400 truncate italic">${item.album}</p>
-                                </div>
+                                <h3 class="font-bold text-white text-sm truncate">${item.band}</h3>
+                                <p class="text-[11px] text-zinc-400 truncate italic">${item.album}</p>
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-between pt-3 border-t border-zinc-800/60 mt-4">
-                            <button onclick="toggleFollow('${item.band}')" class="text-xs font-semibold px-3 py-1.5 rounded-xl border transition flex items-center gap-1.5 cursor-pointer ${isFollowed ? 'bg-red-600/20 border-red-600/40 text-red-400' : 'bg-zinc-950 border-zinc-800 text-zinc-300 hover:bg-zinc-800'}">
-                                ${isFollowed ? '✓ Following' : '+ Follow Band'}
-                            </button>
-                            <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-xs font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1">
-                                Listen 🎧
-                            </a>
+                        <div class="flex items-center justify-end pt-2.5 border-t border-zinc-800/50 mt-2.5">
+                            <span class="text-[10px] mono text-zinc-500">${item.date}</span>
                         </div>
                     </div>
                 `;
