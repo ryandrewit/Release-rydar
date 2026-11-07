@@ -88,11 +88,8 @@
             <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
             <button onclick="filterGenre('Doom Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Doom Metal">Doom Metal</button>
             <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
-            <button onclick="filterGenre('Post-Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Rock">Post-Rock</button>
-            <button onclick="filterGenre('Math Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Math Rock">Math Rock</button>
-            <button onclick="filterGenre('Mathcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Mathcore">Mathcore</button>
+            <button onclick="filterGenre('Post-Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Hardcore">Post-Hardcore</button>
             <button onclick="filterGenre('Math Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Math Metal">Math Metal</button>
-            <button onclick="filterGenre('Jazz Fusion')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Jazz Fusion">Jazz Fusion</button>
             <button onclick="filterGenre('Djent / Prog')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Djent / Prog">Djent / Prog</button>
         </div>
 
@@ -126,6 +123,15 @@
 
     <!-- Application Logic -->
     <script>
+        // Register PWA Service Worker for clean native app installation (removes Chrome browser badge)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered!', reg))
+                    .catch(err => console.log('Service Worker registration failed:', err));
+            });
+        }
+
         const todayObj = new Date("2026-11-07");
         document.getElementById('headerDateBadge').textContent = todayObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
 
