@@ -17,112 +17,118 @@
 
     <!-- Header -->
     <header class="border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
                 <!-- Custom RR Monogram Icon -->
-                <div class="w-11 h-11 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center border border-red-500/40">
-                    <span class="text-white font-black text-lg tracking-tighter mono">RR</span>
+                <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center border border-red-500/40">
+                    <span class="text-white font-black text-base tracking-tighter mono">RR</span>
                 </div>
                 <div>
-                    <h1 class="text-xl font-black tracking-wider uppercase text-white flex items-center gap-2">
-                        Release Rydar <span id="headerDateBadge" class="text-xs bg-red-600/20 text-red-500 border border-red-600/40 px-2 py-0.5 rounded-full mono">LIVE FEED</span>
+                    <h1 class="text-base sm:text-lg font-black tracking-wider uppercase text-white flex items-center gap-2">
+                        Release Rydar <span id="headerDateBadge" class="text-[10px] bg-red-600/20 text-red-500 border border-red-600/40 px-2 py-0.5 rounded-full mono">LIVE FEED</span>
                     </h1>
-                    <p class="text-xs text-zinc-400">Metal • Hardcore • Death Metal • Black Metal • Metalcore • Post-Metal • Shoegaze</p>
                 </div>
             </div>
 
-            <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
-                <button onclick="openInstallModal()" class="flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3.5 py-2 rounded-xl text-xs font-semibold transition cursor-pointer">
-                    <svg class="w-4 h-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                    Install App
+            <div class="flex items-center gap-2">
+                <button onclick="openInstallModal()" class="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer">
+                    <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+                    <span class="hidden sm:inline">Install</span>
                 </button>
-                <button onclick="shareApp()" class="flex items-center gap-2 bg-red-600 hover:bg-red-500 text-white px-3.5 py-2 rounded-xl text-xs font-semibold transition shadow-lg shadow-red-600/20 cursor-pointer">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-                    Share Rydar
+                <button onclick="shareApp()" class="flex items-center gap-1.5 bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-md shadow-red-600/20 cursor-pointer">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+                    Share
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
         
-        <!-- Left Sidebar: Filters & Followed Bands -->
-        <div class="lg:col-span-1 space-y-6">
-            <!-- Search & Date Filter -->
-            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-4">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Filter Releases</h2>
-                
-                <div class="relative">
-                    <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+        <!-- Collapsible Controls Dropdown Drawer -->
+        <details class="group bg-zinc-950/60 border border-zinc-800/80 rounded-2xl backdrop-blur-sm overflow-hidden transition">
+            <summary class="px-5 py-3.5 flex items-center justify-between cursor-pointer select-none bg-zinc-900/40 hover:bg-zinc-900/70 transition">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-4 h-4 text-red-500 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-300 mono">Filters, Followed Bands & Alert Center</span>
+                </div>
+                <span class="text-[11px] text-zinc-500 mono group-open:hidden">Click to expand</span>
+            </summary>
+            
+            <div class="p-5 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-zinc-800/60">
+                <!-- Search & Date Filter -->
+                <div class="space-y-4">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Filter Releases</h2>
+                    
+                    <div class="relative">
+                        <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+                    </div>
+
+                    <div class="space-y-1">
+                        <label class="text-[11px] text-zinc-400 font-medium">Release Date Filter</label>
+                        <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
+                            <option value="today">Released Today / Recent</option>
+                            <option value="week" selected>This Week</option>
+                            <option value="upcoming">Upcoming This Month 🗓️</option>
+                            <option value="all">All Drops</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="space-y-1">
-                    <label class="text-[11px] text-zinc-400 font-medium">Release Date Filter</label>
-                    <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
-                        <option value="today" selected>Released Today / Recent</option>
-                        <option value="week">This Week</option>
-                        <option value="all">All Drops</option>
-                    </select>
-                </div>
-            </div>
+                <!-- Followed Bands Manager -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Followed Bands</h2>
+                        <span id="followedCount" class="text-xs bg-red-600/20 text-red-400 px-2 py-0.5 rounded-full mono font-bold">0</span>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <input type="text" id="newBandInput" placeholder="Add band name..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+                        <button onclick="addCustomBand()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">+</button>
+                    </div>
 
-            <!-- Followed Bands Manager -->
-            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-4">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Followed Bands</h2>
-                    <span id="followedCount" class="text-xs bg-red-600/20 text-red-400 px-2 py-0.5 rounded-full mono font-bold">0</span>
-                </div>
-                
-                <div class="flex gap-2">
-                    <input type="text" id="newBandInput" placeholder="Add band name..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
-                    <button onclick="addCustomBand()" class="bg-zinc-800 hover:bg-zinc-700 text-white px-3 py-2 rounded-xl text-xs font-bold transition cursor-pointer">+</button>
+                    <div id="followedBandsList" class="flex flex-wrap gap-1.5 max-h-32 overflow-y-auto pr-1">
+                        <!-- Dynamic followed bands chips -->
+                    </div>
                 </div>
 
-                <div id="followedBandsList" class="flex flex-wrap gap-1.5 max-h-48 overflow-y-auto pr-1">
-                    <!-- Dynamic followed bands chips -->
-                </div>
-            </div>
-
-            <!-- Notification Center Log -->
-            <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm space-y-3">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Alert Center</h2>
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                </div>
-                <div id="notificationLog" class="space-y-2 text-xs text-zinc-400 max-h-40 overflow-y-auto pr-1">
-                    <div class="p-2 rounded-lg bg-zinc-950 border border-zinc-800/50">
-                        <span class="text-red-400 font-bold">System:</span> Rydar active & syncing daily.
+                <!-- Notification Center Log -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mono">Alert Center</h2>
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    </div>
+                    <div id="notificationLog" class="space-y-2 text-xs text-zinc-400 max-h-32 overflow-y-auto pr-1">
+                        <div class="p-2 rounded-lg bg-zinc-950 border border-zinc-800/50">
+                            <span class="text-red-400 font-bold">System:</span> Rydar active & syncing daily.
+                        </div>
                     </div>
                 </div>
             </div>
+        </details>
+
+        <!-- Genre Filter Pills -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <button onclick="filterGenre('All')" class="genre-btn bg-red-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20" data-genre="All">All Genres</button>
+            <button onclick="filterGenre('Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metal">Metal</button>
+            <button onclick="filterGenre('Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Hardcore">Hardcore</button>
+            <button onclick="filterGenre('Metalcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metalcore">Metalcore</button>
+            <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
+            <button onclick="filterGenre('Black Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Black Metal">Black Metal</button>
+            <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
+            <button onclick="filterGenre('Post-Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Hardcore">Post-Hardcore</button>
+            <button onclick="filterGenre('Shoegaze')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Shoegaze">Shoegaze</button>
+            <button onclick="filterGenre('Post-Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Rock">Post-Rock</button>
+            <button onclick="filterGenre('Sludge / Doom')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Sludge / Doom">Sludge / Doom</button>
+            <button onclick="filterGenre('Djent / Prog')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Djent / Prog">Djent / Prog</button>
+            <button onclick="filterGenre('Grindcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Grindcore">Grindcore</button>
+            <button onclick="filterGenre('Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Rock">Rock</button>
         </div>
 
-        <!-- Main Feed -->
-        <div class="lg:col-span-3 space-y-6">
-            
-            <!-- Genre Filter Pills -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-                <button onclick="filterGenre('All')" class="genre-btn bg-red-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20" data-genre="All">All Genres</button>
-                <button onclick="filterGenre('Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metal">Metal</button>
-                <button onclick="filterGenre('Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Hardcore">Hardcore</button>
-                <button onclick="filterGenre('Metalcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metalcore">Metalcore</button>
-                <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
-                <button onclick="filterGenre('Black Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Black Metal">Black Metal</button>
-                <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
-                <button onclick="filterGenre('Post-Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Hardcore">Post-Hardcore</button>
-                <button onclick="filterGenre('Shoegaze')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Shoegaze">Shoegaze</button>
-                <button onclick="filterGenre('Post-Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Rock">Post-Rock</button>
-                <button onclick="filterGenre('Sludge / Doom')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Sludge / Doom">Sludge / Doom</button>
-                <button onclick="filterGenre('Djent / Prog')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Djent / Prog">Djent / Prog</button>
-                <button onclick="filterGenre('Grindcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Grindcore">Grindcore</button>
-                <button onclick="filterGenre('Rock')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Rock">Rock</button>
-            </div>
-
-            <!-- Releases Grid -->
-            <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Dynamically populated release cards -->
-            </div>
+        <!-- Releases Grid (Full Width Screen Space) -->
+        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamically populated release cards -->
         </div>
     </main>
 
@@ -152,11 +158,11 @@
 
     <!-- JavaScript Application Logic -->
     <script>
-        // Set dynamic date badge in header
         const todayObj = new Date();
         document.getElementById('headerDateBadge').textContent = todayObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
 
         const releasesData = [
+            // Recent Drops (Today / This Week)
             {
                 id: 1,
                 band: "Cult of Luna",
@@ -164,6 +170,7 @@
                 genre: "Post-Metal",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-stone-900 to-zinc-950"
             },
@@ -174,6 +181,7 @@
                 genre: "Hardcore",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-amber-950 to-zinc-950"
             },
@@ -184,6 +192,7 @@
                 genre: "Hardcore",
                 type: "Single / EP",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-emerald-950 to-zinc-950"
             },
@@ -194,6 +203,7 @@
                 genre: "Metalcore",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-zinc-900 to-zinc-950"
             },
@@ -204,6 +214,7 @@
                 genre: "Death Metal",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-red-950 to-zinc-950"
             },
@@ -214,6 +225,7 @@
                 genre: "Black Metal",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-purple-950 to-zinc-950"
             },
@@ -224,6 +236,7 @@
                 genre: "Post-Hardcore",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-blue-950 to-zinc-950"
             },
@@ -234,6 +247,7 @@
                 genre: "Hardcore",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-indigo-950 to-zinc-950"
             },
@@ -244,6 +258,7 @@
                 genre: "Metal",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-teal-950 to-zinc-950"
             },
@@ -254,6 +269,7 @@
                 genre: "Sludge / Doom",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-amber-900 to-zinc-950"
             },
@@ -264,6 +280,7 @@
                 genre: "Metalcore",
                 type: "Album",
                 date: "2026-11-07",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-cyan-950 to-zinc-950"
             },
@@ -274,6 +291,7 @@
                 genre: "Shoegaze",
                 type: "Single",
                 date: "2026-11-04",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-pink-950 to-zinc-950"
             },
@@ -284,8 +302,65 @@
                 genre: "Post-Rock",
                 type: "Album",
                 date: "2026-11-03",
+                status: "recent",
                 artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
                 artBg: "from-teal-950 to-zinc-950"
+            },
+            // Upcoming November 2026 Releases
+            {
+                id: 14,
+                band: "Converge",
+                album: "Blood Moon II",
+                genre: "Post-Hardcore",
+                type: "Album",
+                date: "2026-11-14",
+                status: "upcoming",
+                artUrl: "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-red-950 to-zinc-950"
+            },
+            {
+                id: 15,
+                band: "Architects",
+                album: "The Sky, The Earth & All Between",
+                genre: "Metalcore",
+                type: "Album",
+                date: "2026-11-21",
+                status: "upcoming",
+                artUrl: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-cyan-950 to-zinc-950"
+            },
+            {
+                id: 16,
+                band: "Blood Incantation",
+                album: "Timewave Zero II",
+                genre: "Death Metal",
+                type: "Album",
+                date: "2026-11-28",
+                status: "upcoming",
+                artUrl: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-indigo-950 to-zinc-950"
+            },
+            {
+                id: 17,
+                band: "Sleep Token",
+                album: "Even Though I Walk Through The Fire",
+                genre: "Djent / Prog",
+                type: "Album",
+                date: "2026-11-20",
+                status: "upcoming",
+                artUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-amber-950 to-zinc-950"
+            },
+            {
+                id: 18,
+                band: "Knocked Loose",
+                album: "And Still I Bleed",
+                genre: "Hardcore",
+                type: "EP",
+                date: "2026-11-15",
+                status: "upcoming",
+                artUrl: "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+                artBg: "from-stone-900 to-zinc-950"
             }
         ];
 
@@ -361,8 +436,12 @@
                 
                 let matchesDate = true;
                 if (dateFilter === 'today') {
-                    matchesDate = true; 
+                    matchesDate = item.status === 'recent';
                 } else if (dateFilter === 'week') {
+                    matchesDate = true;
+                } else if (dateFilter === 'upcoming') {
+                    matchesDate = item.status === 'upcoming';
+                } else if (dateFilter === 'all') {
                     matchesDate = true;
                 }
 
@@ -380,17 +459,19 @@
 
             grid.innerHTML = filtered.map(item => {
                 const isFollowed = followedBands.includes(item.band);
+                const isUpcoming = item.status === 'upcoming';
                 return `
                     <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-4 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
                         <div>
                             <div class="flex items-start gap-4 mb-3">
-                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center">
+                                <div class="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-800 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
                                     <img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">
+                                    ${isUpcoming ? '<span class="absolute top-1 right-1 bg-amber-500 text-zinc-950 font-black text-[9px] px-1.5 py-0.5 rounded shadow">SOON</span>' : ''}
                                 </div>
                                 <div class="flex-1 min-w-0">
                                     <div class="flex items-center gap-2 mb-1">
                                         <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md bg-zinc-950 border border-zinc-800 text-zinc-400">${item.genre}</span>
-                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md bg-zinc-950 text-zinc-500">${item.date}</span>
+                                        <span class="text-[10px] mono uppercase px-2 py-0.5 rounded-md ${isUpcoming ? 'bg-amber-950/40 text-amber-400 border border-amber-800/50' : 'bg-zinc-950 text-zinc-500'}">${item.date}</span>
                                     </div>
                                     <h3 class="font-bold text-white text-base truncate">${item.band}</h3>
                                     <p class="text-xs text-zinc-400 truncate italic">${item.album}</p>
