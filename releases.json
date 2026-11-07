@@ -1,6 +1,30 @@
 [
     {
         "id": 1,
+        "band": "Cult of Luna",
+        "album": "In the Shadow of Your Shadow",
+        "genre": "Post-Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "C/L"
+    },
+    {
+        "id": 2,
+        "band": "Sikth",
+        "album": "The Trees Are Dead & Dried Out",
+        "genre": "Math Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-emerald-950 via-zinc-900 to-black",
+        "icon": "SK"
+    },
+    {
+        "id": 3,
         "band": "Comeback Kid",
         "album": "Chosen Hell",
         "genre": "Hardcore",
@@ -12,7 +36,7 @@
         "icon": "CBK"
     },
     {
-        "id": 2,
+        "id": 4,
         "band": "Hatebreed",
         "album": "Fatal Paradox",
         "genre": "Metalcore",
@@ -24,7 +48,7 @@
         "icon": "HB"
     },
     {
-        "id": 3,
+        "id": 5,
         "band": "thrown",
         "album": "Unwanted",
         "genre": "Metalcore",
@@ -36,19 +60,31 @@
         "icon": "THN"
     },
     {
-        "id": 4,
+        "id": 6,
+        "band": "Underdark",
+        "album": "O Come Forth Annihilation",
+        "genre": "Post-Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-teal-950 via-zinc-900 to-black",
+        "icon": "UD"
+    },
+    {
+        "id": 7,
         "band": "Absolute Power",
         "album": "Needs Must When The Devil Drives",
         "genre": "Hardcore",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/46/9e/36/469e3642-c7a6-c28c-f270-aac7b6bf05b4/22011.jpg/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-amber-950 via-zinc-900 to-black",
         "icon": "AP"
     },
     {
-        "id": 5,
+        "id": 8,
         "band": "Afterlife",
         "album": "The Pain That Shapes Us",
         "genre": "Metalcore",
@@ -60,55 +96,55 @@
         "icon": "AFT"
     },
     {
-        "id": 6,
+        "id": 9,
         "band": "Future Static",
         "album": "Ornaments & Memories",
         "genre": "Metalcore",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/9e/42/10/9e421034-a6ae-f8e4-5231-5dbd8b54c67e/820233837521.jpg/600x600bb.jpg",
-        "artBg": "from-teal-950 via-zinc-900 to-black",
+        "artUrl": "",
+        "artBg": "from-cyan-950 via-zinc-900 to-black",
         "icon": "FS"
     },
     {
-        "id": 7,
+        "id": 10,
         "band": "Coilguns",
         "album": "Everything We Love, We Destroy",
         "genre": "Post-Hardcore",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/56/03/b456032a-4398-d241-3586-1f6f6405106c/7640186559980.png/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-blue-950 via-zinc-900 to-black",
         "icon": "CG"
     },
     {
-        "id": 8,
+        "id": 11,
         "band": "Artificial Brain",
         "album": "Antillia",
         "genre": "Death Metal",
         "type": "Album",
         "date": "2026-11-13",
         "status": "upcoming",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/91/9d/f5919d0d-1e6e-e4f0-461b-ad02e66bb24f/Antillia_COVER.jpg/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-indigo-950 via-zinc-900 to-black",
         "icon": "AB"
     },
     {
-        "id": 9,
+        "id": 12,
         "band": "Down",
         "album": "Volume V",
         "genre": "Doom Metal",
         "type": "Album",
         "date": "2026-11-20",
         "status": "upcoming",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/f5/16/76/f51676f0-3e8e-3c8c-5796-8d6972be76f1/098787140460.png/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-zinc-900 via-neutral-900 to-black",
         "icon": "DW"
     },
     {
-        "id": 10,
+        "id": 13,
         "band": "Trivium",
         "album": "Crown In The Grave",
         "genre": "Metal",
