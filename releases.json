@@ -7,8 +7,9 @@
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-zinc-900 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "C/L"
     },
     {
         "id": 2,
@@ -18,8 +19,9 @@
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1511192336575-5a79af67a629?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-stone-900 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-red-950 via-zinc-900 to-black",
+        "icon": "CBK"
     },
     {
         "id": 3,
@@ -29,117 +31,104 @@
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-red-950 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-stone-900 via-zinc-950 to-black",
+        "icon": "HB"
     },
     {
         "id": 4,
-        "band": "thrown",
-        "album": "Unwanted",
-        "genre": "Metalcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-zinc-900 to-zinc-950"
-    },
-    {
-        "id": 5,
         "band": "Underdark",
         "album": "O Come Forth Annihilation",
         "genre": "Post-Metal",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-teal-950 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-teal-950 via-zinc-900 to-black",
+        "icon": "UD"
     },
     {
-        "id": 6,
+        "id": 5,
         "band": "Absolute Power",
         "album": "Needs Must When The Devil Drives",
         "genre": "Hardcore",
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-emerald-950 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-amber-950 via-zinc-900 to-black",
+        "icon": "AP"
+    },
+    {
+        "id": 6,
+        "band": "Konvent",
+        "album": "Firesky",
+        "genre": "Doom Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-indigo-950 via-zinc-900 to-black",
+        "icon": "KV"
     },
     {
         "id": 7,
-        "band": "Coilguns",
-        "album": "Everything We Love, We Destroy",
-        "genre": "Post-Hardcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-blue-950 to-zinc-950"
-    },
-    {
-        "id": 8,
-        "band": "Afterlife",
-        "album": "The Pain That Shapes Us",
-        "genre": "Metalcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-purple-950 to-zinc-950"
-    },
-    {
-        "id": 9,
-        "band": "Future Static",
-        "album": "Ornaments & Memories",
-        "genre": "Metalcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-cyan-950 to-zinc-950"
-    },
-    {
-        "id": 10,
         "band": "Yngwie Malmsteen",
         "album": "Hell Or High Water",
         "genre": "Rock",
         "type": "Album",
         "date": "2026-11-11",
         "status": "upcoming",
-        "artUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-amber-900 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-orange-950 via-zinc-900 to-black",
+        "icon": "YM"
     },
     {
-        "id": 11,
+        "id": 8,
+        "band": "Iron Savior",
+        "album": "Deathbringer",
+        "genre": "Metal",
+        "type": "Album",
+        "date": "2026-11-12",
+        "status": "upcoming",
+        "artUrl": "",
+        "artBg": "from-blue-950 via-zinc-900 to-black",
+        "icon": "IS"
+    },
+    {
+        "id": 9,
         "band": "Artificial Brain",
         "album": "Antillia",
         "genre": "Death Metal",
         "type": "Album",
         "date": "2026-11-13",
         "status": "upcoming",
-        "artUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-blue-950 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-purple-950 via-zinc-900 to-black",
+        "icon": "AB"
     },
     {
-        "id": 12,
+        "id": 10,
         "band": "Down",
         "album": "Volume V",
         "genre": "Doom Metal",
         "type": "Album",
         "date": "2026-11-20",
         "status": "upcoming",
-        "artUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-stone-900 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-emerald-950 via-zinc-900 to-black",
+        "icon": "DW"
     },
     {
-        "id": 13,
+        "id": 11,
         "band": "Trivium",
         "album": "Crown In The Grave",
         "genre": "Metal",
         "type": "Album",
         "date": "2026-11-20",
         "status": "upcoming",
-        "artUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
-        "artBg": "from-emerald-950 to-zinc-950"
+        "artUrl": "",
+        "artBg": "from-red-900 via-zinc-900 to-black",
+        "icon": "TR"
     }
 ]
