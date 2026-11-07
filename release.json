@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "band": "Cult of Luna",
+        "album": "In the Shadow of Your Shadow",
+        "genre": "Post-Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=600&auto=format&fit=crop&q=80",
+        "artBg": "from-zinc-900 to-zinc-950"
+    },
+    {
+        "id": 2,
+        "band": "Comeback Kid",
+        "album": "Chosen Hell",
+        "genre": "Hardcore",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&auto=format&fit=crop&q=80",
+        "artBg": "from-stone-900 to-zinc-950"
+    },
+    {
+        "id": 3,
+        "band": "Hatebreed",
+        "album": "Fatal Paradox",
+        "genre": "Metalcore",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&auto=format&fit=crop&q=80",
+        "artBg": "from-red-950 to-zinc-950"
+    },
+    {
+        "id": 4,
+        "band": "Underdark",
+        "album": "O Come Forth Annihilation",
+        "genre": "Post-Metal",
+        "type": "Album",
+        "date": "2026-11-06",
+        "status": "recent",
+        "artUrl": "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=600&auto=format&fit=crop&q=80",
+        "artBg": "from-teal-950 to-zinc-950"
+    }
+]
