@@ -1,2 +1,2 @@
 # Release-rydar
-Music release
+latest music release radar for the heavier listener 
