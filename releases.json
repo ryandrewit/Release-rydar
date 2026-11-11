@@ -1,170 +1,180 @@
 [
-  {
-    "id": 1,
-    "band": "Comeback Kid",
-    "album": "Chosen Hell",
-    "genre": "Hardcore",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 2,
-    "band": "Cult of Luna",
-    "album": "In The Shadow Of Your Shadow",
-    "genre": "Post-Metal",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 3,
-    "band": "Hatebreed",
-    "album": "Fatal Paradox",
-    "genre": "Hardcore / Metalcore",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 4,
-    "band": "Konvent",
-    "album": "Firesky",
-    "genre": "Doom / Death Metal",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 5,
-    "band": "Saor",
-    "album": "Caledonia",
-    "genre": "Atmospheric Black Metal",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 6,
-    "band": "Besotten",
-    "album": "Eye of the Monolithicrypt",
-    "genre": "Death/Doom Metal",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 7,
-    "band": "Carnifex",
-    "album": "More Than Misery",
-    "genre": "Deathcore",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 8,
-    "band": "thrown",
-    "album": "Unwanted",
-    "genre": "Metalcore",
-    "date": "2026-11-06",
-    "type": "Album"
-  },
-  {
-    "id": 9,
-    "band": "Artificial Brain",
-    "album": "Antillia",
-    "genre": "Brutal Death Metal",
-    "date": "2026-11-13",
-    "type": "Album"
-  },
-  {
-    "id": 10,
-    "band": "Assumption",
-    "album": "Paradox Of The Arrow",
-    "genre": "Death/Doom Metal",
-    "date": "2026-11-13",
-    "type": "Album"
-  },
-  {
-    "id": 11,
-    "band": "Walls Of Jericho",
-    "album": "System Error: Humanity",
-    "genre": "Hardcore / Metalcore",
-    "date": "2026-11-13",
-    "type": "Album"
-  },
-  {
-    "id": 12,
-    "band": "Wraith",
-    "album": "Descent Into Darkness",
-    "genre": "Blackened Thrash / Metal",
-    "date": "2026-11-13",
-    "type": "Album"
-  },
-  {
-    "id": 13,
-    "band": "Azarath",
-    "album": "Scorn Eternal",
-    "genre": "Death Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 14,
-    "band": "Down",
-    "album": "Volume V",
-    "genre": "Stoner / Doom Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 15,
-    "band": "Golgothan Remains",
-    "album": "Born From Darkness Absolute",
-    "genre": "Death Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 16,
-    "band": "Suicide Silence",
-    "album": "Graceless",
-    "genre": "Deathcore",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 17,
-    "band": "Thy Catafalque",
-    "album": "XIII: Sárga erdő",
-    "genre": "Avant-Garde Black / Folk Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 18,
-    "band": "Trivium",
-    "album": "Crown In The Grave",
-    "genre": "Metalcore / Heavy Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 19,
-    "band": "Wayfarer",
-    "album": "Riders Of The Setting Sun",
-    "genre": "Atmospheric Black / Folk Metal",
-    "date": "2026-11-20",
-    "type": "Album"
-  },
-  {
-    "id": 20,
-    "band": "Leviathan",
-    "album": "Die To This",
-    "genre": "Black Metal",
-    "date": "2026-11-27",
-    "type": "Album"
-  },
-  {
-    "id": 21,
-    "band": "Revnoir",
-    "album": "Sometimes I Feel You, Sometimes I Don't",
-    "genre": "Metalcore",
-    "date": "2026-11-27",
-    "type": "Album"
-  }
+    {
+        "id": 1,
+        "band": "Comeback Kid",
+        "album": "Chosen Hell",
+        "genre": "Hardcore",
+        "date": "2026-11-06",
+        "type": "Album"
+    },
+    {
+        "id": 2,
+        "band": "Cult of Luna",
+        "album": "In The Shadow Of Your Shadow",
+        "genre": "Post-Metal",
+        "date": "2026-11-06",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/69/66/ed/6966eddd-3265-0110-0519-47e2a629adeb/820233817530.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 3,
+        "band": "Hatebreed",
+        "album": "Fatal Paradox",
+        "genre": "Hardcore / Metalcore",
+        "date": "2026-11-06",
+        "type": "Album"
+    },
+    {
+        "id": 4,
+        "band": "Konvent",
+        "album": "Firesky",
+        "genre": "Doom / Death Metal",
+        "date": "2026-11-06",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d6/c0/c8/d6c0c8eb-5033-6ac7-e3f7-1a0d02ee63af/810221172253.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 5,
+        "band": "Saor",
+        "album": "Caledonia",
+        "genre": "Atmospheric Black Metal",
+        "date": "2026-11-06",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d8/e7/ab/d8e7ab74-cb4a-41f8-afa4-b747871cbed4/822603022933.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 6,
+        "band": "Besotten",
+        "album": "Eye of the Monolithicrypt",
+        "genre": "Death/Doom Metal",
+        "date": "2026-11-06",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/09/5b/f8/095bf893-37cd-c832-1adf-e94f98f2c67a/612789666805.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 7,
+        "band": "Carnifex",
+        "album": "More Than Misery",
+        "genre": "Deathcore",
+        "date": "2026-11-06",
+        "type": "Album"
+    },
+    {
+        "id": 8,
+        "band": "thrown",
+        "album": "Unwanted",
+        "genre": "Metalcore",
+        "date": "2026-11-06",
+        "type": "Album"
+    },
+    {
+        "id": 9,
+        "band": "Artificial Brain",
+        "album": "Antillia",
+        "genre": "Brutal Death Metal",
+        "date": "2026-11-13",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/91/9d/f5919d0d-1e6e-e4f0-461b-ad02e66bb24f/Antillia_COVER.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 10,
+        "band": "Assumption",
+        "album": "Paradox Of The Arrow",
+        "genre": "Death/Doom Metal",
+        "date": "2026-11-13",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c0/52/61/c0526146-6d30-e392-0c87-485530ef4969/810079502653.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 11,
+        "band": "Walls Of Jericho",
+        "album": "System Error: Humanity",
+        "genre": "Hardcore / Metalcore",
+        "date": "2026-11-13",
+        "type": "Album"
+    },
+    {
+        "id": 12,
+        "band": "Wraith",
+        "album": "Descent Into Darkness",
+        "genre": "Blackened Thrash / Metal",
+        "date": "2026-11-13",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e2/b5/21/e2b52141-b4de-e9ca-544e-c293024a9e78/33058.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 13,
+        "band": "Azarath",
+        "album": "Scorn Eternal",
+        "genre": "Death Metal",
+        "date": "2026-11-20",
+        "type": "Album"
+    },
+    {
+        "id": 14,
+        "band": "Down",
+        "album": "Volume V",
+        "genre": "Stoner / Doom Metal",
+        "date": "2026-11-20",
+        "type": "Album",
+        "artUrl": ""
+    },
+    {
+        "id": 15,
+        "band": "Golgothan Remains",
+        "album": "Born From Darkness Absolute",
+        "genre": "Death Metal",
+        "date": "2026-11-20",
+        "type": "Album"
+    },
+    {
+        "id": 16,
+        "band": "Suicide Silence",
+        "album": "Graceless",
+        "genre": "Deathcore",
+        "date": "2026-11-20",
+        "type": "Album"
+    },
+    {
+        "id": 17,
+        "band": "Thy Catafalque",
+        "album": "XIII: S\u00e1rga erd\u0151",
+        "genre": "Avant-Garde Black / Folk Metal",
+        "date": "2026-11-20",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/92/77/29/9277296b-9094-f542-15e8-d72d3e423633/822603021059.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 18,
+        "band": "Trivium",
+        "album": "Crown In The Grave",
+        "genre": "Metalcore / Heavy Metal",
+        "date": "2026-11-20",
+        "type": "Album"
+    },
+    {
+        "id": 19,
+        "band": "Wayfarer",
+        "album": "Riders Of The Setting Sun",
+        "genre": "Atmospheric Black / Folk Metal",
+        "date": "2026-11-20",
+        "type": "Album"
+    },
+    {
+        "id": 20,
+        "band": "Leviathan",
+        "album": "Die To This",
+        "genre": "Black Metal",
+        "date": "2026-11-27",
+        "type": "Album",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/97/11/8e/97118e65-2db3-b67c-98c6-88c7e1220f7d/840526518517.jpg/600x600bb.jpg"
+    },
+    {
+        "id": 21,
+        "band": "Revnoir",
+        "album": "Sometimes I Feel You, Sometimes I Don't",
+        "genre": "Metalcore",
+        "date": "2026-11-27",
+        "type": "Album"
+    }
 ]
