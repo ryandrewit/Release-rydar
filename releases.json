@@ -1,5 +1,17 @@
 [
     {
+        "id": 14,
+        "band": "Meridian Veil (Cryptopsy, Ex",
+        "album": "The Agonist, Etc.) Launch Their Debut Single \u201cThe Watcher\u201d",
+        "genre": "Metal / Hardcore",
+        "type": "Single/Album",
+        "date": "2026-11-11",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "MV"
+    },
+    {
         "id": 1,
         "band": "Cult of Luna",
         "album": "In the Shadow of Your Shadow",
