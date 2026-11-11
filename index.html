@@ -48,7 +48,7 @@
                         <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 mono font-semibold">LIVE</span>
                         <span id="currentMonthBadge" class="text-[11px] font-mono font-medium text-zinc-400 bg-zinc-900 border border-zinc-800 px-2.5 py-0.5 rounded-md"></span>
                     </h1>
-                    <p class="text-[11px] text-zinc-400">Bennet style heavy music releases</p>
+                    <p class="text-[11px] text-zinc-400">Autonomous Heavy Music Intelligence</p>
                 </div>
             </div>
         </header>
@@ -168,6 +168,19 @@
             }
         }
 
+        function handleImageError(imgEl, bandName, cacheKey) {
+            if (cacheKey) localStorage.removeItem(cacheKey);
+            const parent = imgEl.parentElement;
+            const initials = bandName.substring(0, 2).toUpperCase();
+            parent.innerHTML = `<div class="w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${initials}</div>`;
+        }
+
+        function handleDetailImageError(imgEl, bandName) {
+            const parent = imgEl.parentElement;
+            const initials = bandName.substring(0, 2).toUpperCase();
+            parent.innerHTML = `<div class="w-32 h-32 rounded-xl bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-3xl text-zinc-700 shadow-lg border border-zinc-800">${initials}</div>`;
+        }
+
         function setTab(tab) {
             currentTab = tab;
             document.getElementById('tab-recent').className = tab === 'recent' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
@@ -216,8 +229,9 @@
                     ? `<span class="bg-amber-950/80 text-amber-400 border border-amber-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Upcoming</span>`
                     : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Released</span>`;
 
+                const cacheKey = `art_${item.band}_${item.album}`.toLowerCase().replace(/[^a-z0-9]/g, '_');
                 const artHtml = item.artUrl 
-                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter\'>${item.band.substring(0,2).toUpperCase()}</div>';">`
+                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${item.band.replace(/'/g, "\\'")}', '${cacheKey}')">`
                     : `<div class="w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.band.substring(0,2).toUpperCase()}</div>`;
 
                 return `
@@ -256,7 +270,7 @@
             window.scrollTo(0, 0);
 
             const artHtml = item.artUrl 
-                ? `<img src="${item.artUrl}" alt="${item.album}" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-zinc-800">`
+                ? `<img src="${item.artUrl}" alt="${item.album}" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-zinc-800" onerror="handleDetailImageError(this, '${item.band.replace(/'/g, "\\'")}')">`
                 : `<div class="w-32 h-32 rounded-xl bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-3xl text-zinc-700 shadow-lg border border-zinc-800">${item.band.substring(0,2).toUpperCase()}</div>`;
 
             const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}`;
