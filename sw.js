@@ -1,4 +1,4 @@
-const CACHE_NAME = 'release-rydar-v2';
+const CACHE_NAME = 'release-rydar-v3';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
@@ -6,9 +6,9 @@ const ASSETS_TO_CACHE = [
     './manifest.json'
 ];
 
-// Install event: cache core assets
+// Install event: cache core assets and skip waiting
 self.addEventListener('install', (event) => {
-    self.skipWaiting(); // Force the waiting service worker to become active
+    self.skipWaiting();
     event.waitUntil(
         caches.open(CACHE_NAME).then((cache) => {
             return cache.addAll(ASSETS_TO_CACHE);
@@ -16,7 +16,7 @@ self.addEventListener('install', (event) => {
     );
 });
 
-// Activate event: clean up old caches immediately
+// Activate event: clean up stale legacy caches immediately
 self.addEventListener('activate', (event) => {
     event.waitUntil(
         caches.keys().then((keys) => {
@@ -31,10 +31,17 @@ self.addEventListener('activate', (event) => {
     );
 });
 
-// Fetch event: network-first for JSON, cache-first for static assets
+// Fetch event handling
 self.addEventListener('fetch', (event) => {
-    if (event.request.url.includes('releases.json')) {
-        // Always fetch fresh releases.json from network so updates show instantly
+    const url = new URL(event.request.url);
+
+    // 1. CRITICAL: Let all Supabase cloud database requests go straight to the network
+    if (url.hostname.includes('supabase.co')) {
+        return; 
+    }
+
+    // 2. Network-first strategy for releases.json so schedule updates show instantly
+    if (url.pathname.endsWith('releases.json')) {
         event.respondWith(
             fetch(event.request)
                 .then((networkResponse) => {
@@ -45,11 +52,13 @@ self.addEventListener('fetch', (event) => {
                 })
                 .catch(() => caches.match(event.request))
         );
-    } else {
-        event.respondWith(
-            caches.match(event.request).then((cachedResponse) => {
-                return cachedResponse || fetch(event.request);
-            })
-        );
+        return;
     }
+
+    // 3. Cache-first strategy for static app assets (HTML, icons, manifests)
+    event.respondWith(
+        caches.match(event.request).then((cachedResponse) => {
+            return cachedResponse || fetch(event.request);
+        })
+    );
 });
