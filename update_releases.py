@@ -3,10 +3,12 @@ import json
 import os
 import urllib.request
 import urllib.parse
+import xml.etree.ElementTree as ET
+import re
 
-print("=== Release Rydar Autonomous MusicBrainz & Art Sync ===")
+print("=== Release Rydar Heavy Music Auto-Crawler ===")
 today = datetime.date.today()
-print(f"Running automated sync for: {today.strftime('%B %d, %Y')}")
+print(f"Running automated scan for: {today.strftime('%B %d, %Y')}")
 
 json_path = "releases.json"
 
@@ -19,44 +21,55 @@ if os.path.exists(json_path):
         except Exception:
             releases = []
 
-existing_bands = {item['band'].lower() for item in releases}
+existing_keys = {f"{item['band'].lower()} - {item['album'].lower()}" for item in releases}
 
-# 1. Query MusicBrainz API for recent heavy/metal releases
-# MusicBrainz requires a descriptive User-Agent header per their terms of use
-mb_url = "https://musicbrainz.org/ws/2/release/?query=tag:metal+AND+date:[2026-11-01 TO 2026-11-30]&fmt=json"
+# Trusted heavy music RSS feeds / release logs
+# These feeds regularly publish weekly release columns and single drops
+rss_sources = [
+    "https://www.theprp.com/feed/", # Known for heavy weekly release lists
+]
 
-try:
-    req = urllib.request.Request(mb_url, headers={'User-Agent': 'ReleaseRydar/1.0 (contact@releaserydar.com)'})
-    with urllib.request.urlopen(req, timeout=10) as response:
-        mb_data = json.loads(response.read().decode())
-        releases_list = mb_data.get('releases', [])
-        
-        for rel in releases_list[:15]: # Grab top recent matches
-            band_name = rel['artist-credit'][0]['name']
-            album_title = rel['title']
-            release_date = rel.get('date', str(today))
+for feed_url in rss_sources:
+    try:
+        req = urllib.request.Request(feed_url, headers={'User-Agent': 'ReleaseRydarBot/1.0'})
+        with urllib.request.urlopen(req, timeout=10) as response:
+            xml_data = response.read()
+            root = ET.fromstring(xml_data)
             
-            # If band isn't already in our list, auto-discover and add them!
-            if band_name.lower() not in existing_bands:
-                new_item = {
-                    "id": len(releases) + 1,
-                    "band": band_name,
-                    "album": album_title,
-                    "genre": "Metal",
-                    "type": "Album/Single",
-                    "date": release_date,
-                    "status": "recent",
-                    "artUrl": "",
-                    "artBg": "from-zinc-900 via-neutral-900 to-black",
-                    "icon": "".join([c[0] for c in band_name.split()[:2]]).upper()
-                }
-                releases.insert(0, new_item)
-                existing_bands.add(band_name.lower())
-                print(f"Auto-discovered new release: {band_name} - {album_title}")
-except Exception as e:
-    print(f"Notice: MusicBrainz discovery skipped: {e}")
+            # Parse RSS items
+            for item in root.findall('.//item'):
+                title = item.find('title')
+                if title is not None and title.text:
+                    text = title.text
+                    # Look for release announcement patterns like "Band Name - Album Title" or "Band Name Premiere"
+                    if "releases" in text.lower() or "stream" in text.lower() or "single" in text.lower() or "album" in text.lower():
+                        # Simple heuristic extraction (Band - Album separator)
+                        parts = re.split(r'[-–—:]', text)
+                        if len(parts) >= 2:
+                            band_name = parts[0].strip()
+                            album_title = parts[1].strip().split('(')[0].strip() # Clean up trailing info
+                            
+                            key = f"{band_name.lower()} - {album_title.lower()}"
+                            if key not in existing_keys and len(band_name) > 1 and len(album_title) > 1:
+                                new_item = {
+                                    "id": len(releases) + 1,
+                                    "band": band_name,
+                                    "album": album_title,
+                                    "genre": "Metal / Hardcore",
+                                    "type": "Single/Album",
+                                    "date": str(today),
+                                    "status": "recent",
+                                    "artUrl": "",
+                                    "artBg": "from-zinc-900 via-neutral-900 to-black",
+                                    "icon": "".join([c[0] for c in band_name.split()[:2]]).upper()
+                                }
+                                releases.insert(0, new_item)
+                                existing_keys.add(key)
+                                print(f"Auto-captured from feed: {band_name} - {album_title}")
+    except Exception as e:
+        print(f"Notice: Error parsing feed {feed_url}: {e}")
 
-# 2. Automatically fetch official artwork for any items missing artUrl
+# Automatically fetch official artwork for any items missing artUrl
 for item in releases:
     if not item.get("artUrl") or item.get("artUrl") == "":
         search_term = f"{item['band']} {item['album']}"
@@ -78,4 +91,4 @@ for item in releases:
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(releases, f, indent=4)
     
-print("releases.json successfully updated with auto-discovered releases and artwork!")
+print("Auto-crawler sync complete!")
