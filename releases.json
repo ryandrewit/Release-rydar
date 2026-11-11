@@ -499,7 +499,7 @@
         "type": "Album",
         "date": "2026-11-20",
         "status": "upcoming",
-        "artUrl": "",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/01/69/02/01690216-48fc-1c54-b1de-48170d16b1c3/00602567725268.rgb.jpg/600x600bb.jpg",
         "artBg": "from-zinc-900 via-neutral-900 to-black",
         "icon": "DW"
     },
@@ -535,7 +535,7 @@
         "type": "Album",
         "date": "2026-11-13",
         "status": "upcoming",
-        "artUrl": "",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/91/9d/f5919d0d-1e6e-e4f0-461b-ad02e66bb24f/Antillia_COVER.jpg/600x600bb.jpg",
         "artBg": "from-indigo-950 via-zinc-900 to-black",
         "icon": "AB"
     },
@@ -547,7 +547,7 @@
         "type": "Album",
         "date": "2026-11-13",
         "status": "upcoming",
-        "artUrl": "",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c0/52/61/c0526146-6d30-e392-0c87-485530ef4969/810079502653.jpg/600x600bb.jpg",
         "artBg": "from-stone-900 via-zinc-950 to-black",
         "icon": "ASP"
     },
@@ -607,7 +607,7 @@
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/56/03/b456032a-4398-d241-3586-1f6f6405106c/7640186559980.png/600x600bb.jpg",
         "artBg": "from-blue-950 via-zinc-900 to-black",
         "icon": "CG"
     },
@@ -631,7 +631,7 @@
         "type": "Album",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "",
+        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/69/66/ed/6966eddd-3265-0110-0519-47e2a629adeb/820233817530.jpg/600x600bb.jpg",
         "artBg": "from-zinc-900 via-neutral-900 to-black",
         "icon": "C/L"
     },
