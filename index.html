@@ -7,6 +7,8 @@
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#09090b">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Supabase Client SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
@@ -32,9 +34,9 @@
     </style>
 </head>
 <body class="min-h-screen selection:bg-red-600 selection:text-white pb-16">
-    <!-- App Container -->
-    <div class="max-w-7xl mx-auto px-4 py-5">
-        
+
+    <!-- MAIN VIEW CONTAINER -->
+    <div id="main-view" class="max-w-7xl mx-auto px-4 py-5">
         <!-- Header -->
         <header class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-5">
             <div class="flex items-center space-x-3">
@@ -48,11 +50,9 @@
                     <p class="text-[11px] text-zinc-400">Autonomous Heavy Music Intelligence</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2">
-                <button onclick="loadReleases()" class="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition" title="Refresh Feed">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                </button>
-            </div>
+            <button onclick="loadReleases()" class="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition" title="Refresh Feed">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            </button>
         </header>
 
         <!-- Status / Tab Filter Bar -->
@@ -65,8 +65,6 @@
                     Upcoming This Month
                 </button>
             </div>
-
-            <!-- Search Input -->
             <div class="relative w-full sm:w-60">
                 <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
             </div>
@@ -74,39 +72,19 @@
 
         <!-- Genre Pill Bar -->
         <div class="flex overflow-x-auto pb-2 mb-5 space-x-2 scrollbar-none">
-            <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">
-                All Genres
-            </button>
-            <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Hardcore
-            </button>
-            <button onclick="filterGenre('Metalcore')" id="genre-Metalcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Metalcore
-            </button>
-            <button onclick="filterGenre('Post-Metal')" id="genre-Post-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Post-Metal
-            </button>
-            <button onclick="filterGenre('Doom Metal')" id="genre-Doom Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Doom Metal
-            </button>
-            <button onclick="filterGenre('Death Metal')" id="genre-Death Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Death Metal
-            </button>
-            <button onclick="filterGenre('Math Metal')" id="genre-Math Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Math Metal
-            </button>
-            <button onclick="filterGenre('Prog Metal')" id="genre-Prog Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Prog Metal
-            </button>
-            <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
-                Metal
-            </button>
+            <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">All Genres</button>
+            <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Hardcore</button>
+            <button onclick="filterGenre('Metalcore')" id="genre-Metalcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Metalcore</button>
+            <button onclick="filterGenre('Post-Metal')" id="genre-Post-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Post-Metal</button>
+            <button onclick="filterGenre('Doom Metal')" id="genre-Doom Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Doom Metal</button>
+            <button onclick="filterGenre('Death Metal')" id="genre-Death Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Death Metal</button>
+            <button onclick="filterGenre('Math Metal')" id="genre-Math Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Math Metal</button>
+            <button onclick="filterGenre('Prog Metal')" id="genre-Prog Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Prog Metal</button>
+            <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Metal</button>
         </div>
 
         <!-- Release Grid (Compact Pill-Box Layout) -->
-        <div id="releaseGrid" class="release-grid">
-            <!-- Dynamically populated from releases.json -->
-        </div>
+        <div id="releaseGrid" class="release-grid"></div>
 
         <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-16">
@@ -114,11 +92,31 @@
         </div>
     </div>
 
+
+    <!-- ALBUM DETAIL & REVIEW VIEW (Hidden by default) -->
+    <div id="detail-view" class="hidden max-w-3xl mx-auto px-4 py-5">
+        <button onclick="backToMain()" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-zinc-400 hover:text-white mb-6 bg-zinc-900 border border-zinc-800 px-3 py-1.5 rounded-lg transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            <span>Back to Releases</span>
+        </button>
+
+        <div id="detailContent" class="space-y-6">
+            <!-- Dynamically populated album detail header & form -->
+        </div>
+    </div>
+
+
     <!-- Application Script -->
     <script>
+        // --- SUPABASE CONFIGURATION ---
+        const SUPABASE_URL = 'https://aetokzwyrcferaxjmzmu.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_XmqY7EqijK4Z3m3GcQ7fbQ_6EdV1o_v';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         let allReleases = [];
         let currentTab = 'recent';
         let currentGenre = 'All';
+        let activeAlbumId = null;
 
         async function loadReleases() {
             try {
@@ -128,23 +126,13 @@
                 renderReleases();
             } catch (err) {
                 console.error("Error fetching releases:", err);
-                document.getElementById('releaseGrid').innerHTML = `
-                    <div style="grid-column: 1 / -1;" class="p-5 bg-red-950/40 border border-red-900/50 rounded-xl text-center">
-                        <p class="text-red-400 text-xs font-medium">Could not load releases data.</p>
-                        <p class="text-zinc-500 text-[10px] mt-1">Make sure releases.json is in your repository root.</p>
-                    </div>
-                `;
             }
         }
 
         function setTab(tab) {
             currentTab = tab;
-            document.getElementById('tab-recent').className = tab === 'recent' 
-                ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' 
-                : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
-            document.getElementById('tab-upcoming').className = tab === 'upcoming' 
-                ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' 
-                : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
+            document.getElementById('tab-recent').className = tab === 'recent' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
+            document.getElementById('tab-upcoming').className = tab === 'upcoming' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
             renderReleases();
         }
 
@@ -152,11 +140,9 @@
             currentGenre = genre;
             document.querySelectorAll('.genre-pill').forEach(btn => {
                 const isSelected = btn.textContent.trim().toLowerCase() === (genre === 'All' ? 'all genres' : genre.toLowerCase());
-                if (isSelected) {
-                    btn.className = 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950';
-                } else {
-                    btn.className = 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200';
-                }
+                btn.className = isSelected 
+                    ? 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950'
+                    : 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800';
             });
             renderReleases();
         }
@@ -165,9 +151,11 @@
             const query = document.getElementById('searchInput').value.toLowerCase();
             const grid = document.getElementById('releaseGrid');
             const emptyState = document.getElementById('emptyState');
+            const todayStr = new Date().toISOString().split('T')[0];
 
             const filtered = allReleases.filter(item => {
-                const matchesTab = item.status === currentTab;
+                const calcStatus = item.date > todayStr ? 'upcoming' : 'recent';
+                const matchesTab = calcStatus === currentTab;
                 const matchesGenre = currentGenre === 'All' || item.genre.toLowerCase().includes(currentGenre.toLowerCase());
                 const matchesSearch = item.band.toLowerCase().includes(query) || item.album.toLowerCase().includes(query);
                 return matchesTab && matchesGenre && matchesSearch;
@@ -181,17 +169,16 @@
 
             emptyState.classList.add('hidden');
             grid.innerHTML = filtered.map(item => {
-                const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}`;
                 const artHtml = item.artUrl 
                     ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
                     : `<div class="w-full h-full bg-gradient-to-br ${item.artBg || 'from-zinc-900 to-black'} flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.icon || item.band.substring(0,2).toUpperCase()}</div>`;
 
                 return `
-                    <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm">
+                    <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm cursor-pointer" onclick="openAlbumDetail(${item.id})">
                         <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
                             ${artHtml}
-                            <div class="absolute top-2 left-2 bg-zinc-950/80 backdrop-blur-md px-2 py-0.5 rounded-full text-[9px] font-semibold text-zinc-300 uppercase tracking-wider border border-zinc-800">
-                                ${item.type || 'Album'}
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">View & Review</span>
                             </div>
                         </div>
                         <div class="p-3 flex flex-col flex-1 justify-between">
@@ -203,32 +190,163 @@
                                 <h3 class="font-bold text-white text-xs leading-tight group-hover:text-red-400 transition line-clamp-1" title="${item.band}">${item.band}</h3>
                                 <p class="text-zinc-400 text-[11px] mt-0.5 line-clamp-1" title="${item.album}">${item.album}</p>
                             </div>
-                            <div class="mt-3 pt-2 border-t border-zinc-800/60 flex items-center justify-between">
-                                <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-400 hover:text-emerald-300 transition">
-                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.78-2.22-11.22-1.24-.42.06-.84-.18-.9-.6-.06-.42.18-.84.6-.9 4.86-1.08 9.06-.6 12.48 1.56.36.24.48.72.24 1.04zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.58-2.71-12.6-1.48-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.62-1.38 10.38-.72 14.34 1.74.48.3.6 1.02.3 1.42zm.12-3.66C15.24 7.92 8.82 7.68 5.16 8.82c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.2-1.26 11.4-0.96 15.6 1.5.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
-                                    <span>Spotify</span>
-                                </a>
-                                <span class="text-[9px] text-zinc-500 mono">${item.status.toUpperCase()}</span>
-                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function filterReleases() {
-            renderReleases();
+        function filterReleases() { renderReleases(); }
+
+        // --- ALBUM DETAIL & SUPABASE REVIEWS LOGIC ---
+        async function openAlbumDetail(id) {
+            activeAlbumId = id;
+            const item = allReleases.find(r => r.id === id);
+            if (!item) return;
+
+            document.getElementById('main-view').classList.add('hidden');
+            document.getElementById('detail-view').classList.remove('hidden');
+            window.scrollTo(0, 0);
+
+            const artHtml = item.artUrl 
+                ? `<img src="${item.artUrl}" alt="${item.album}" class="w-32 h-32 rounded-xl object-cover shadow-lg border border-zinc-800">`
+                : `<div class="w-32 h-32 rounded-xl bg-gradient-to-br ${item.artBg || 'from-zinc-900 to-black'} flex items-center justify-center font-mono font-extrabold text-3xl text-zinc-700 shadow-lg border border-zinc-800">${item.icon || item.band.substring(0,2).toUpperCase()}</div>`;
+
+            const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}`;
+
+            // Fetch reviews from Supabase cloud database
+            let reviews = [];
+            try {
+                const { data, error } = await supabaseClient
+                    .from('reviews')
+                    .select('*')
+                    .eq('album_id', String(id))
+                    .order('created_at', { ascending: false });
+                if (!error && data) reviews = data;
+            } catch (err) {
+                console.error("Error fetching reviews from Supabase:", err);
+            }
+
+            document.getElementById('detailContent').innerHTML = `
+                <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800">
+                    ${artHtml}
+                    <div class="text-center sm:text-left flex-1">
+                        <span class="text-xs font-semibold text-red-500 uppercase tracking-wider">${item.genre} • ${item.type || 'Album'}</span>
+                        <h2 class="text-xl font-extrabold text-white mt-1">${item.band}</h2>
+                        <p class="text-zinc-300 text-sm mt-0.5">${item.album}</p>
+                        <p class="text-xs text-zinc-500 mono mt-2">Release Date: ${item.date}</p>
+                        <div class="mt-4">
+                            <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-semibold bg-emerald-600/20 text-emerald-400 border border-emerald-800/50 px-3 py-1.5 rounded-lg hover:bg-emerald-600/30 transition">
+                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.78-2.22-11.22-1.24-.42.06-.84-.18-.9-.6-.06-.42.18-.84.6-.9 4.86-1.08 9.06-.6 12.48 1.56.36.24.48.72.24 1.04zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.58-2.71-12.6-1.48-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.62-1.38 10.38-.72 14.34 1.74.48.3.6 1.02.3 1.42zm.12-3.66C15.24 7.92 8.82 7.68 5.16 8.82c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.2-1.26 11.4-0.96 15.6 1.5.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
+                                <span>Listen on Spotify</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Submission Form -->
+                <div class="bg-zinc-900 p-5 rounded-2xl border border-zinc-800">
+                    <h3 class="text-sm font-bold text-white mb-3">Add Your Review & Rating</h3>
+                    <form onsubmit="submitReview(event)" class="space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] text-zinc-400 mb-1">Your Name</label>
+                                <input type="text" id="reviewName" required placeholder="e.g. MetalHead99" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-red-600">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-zinc-400 mb-1">Rating</label>
+                                <select id="reviewRating" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-red-600">
+                                    <option value="🔥 5/5 - Absolute Masterpiece">🔥 5/5 - Masterpiece</option>
+                                    <option value="🤘 4/5 - Heavy Banger">🤘 4/5 - Heavy Banger</option>
+                                    <option value="🎸 3/5 - Solid Release">🎸 3/5 - Solid Release</option>
+                                    <option value="⚠️ 2/5 - Underwhelming">⚠️ 2/5 - Underwhelming</option>
+                                    <option value="🗑️ 1/5 - Skip It">🗑️ 1/5 - Skip It</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-zinc-400 mb-1">Your Review / Thoughts</label>
+                            <textarea id="reviewComment" rows="3" required placeholder="Share your thoughts on this release..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-xs text-zinc-200 focus:outline-none focus:border-red-600"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-2.5 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-semibold transition shadow-md shadow-red-600/20">
+                            Post Review
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Community Reviews Accordion List -->
+                <div>
+                    <h3 class="text-sm font-bold text-white mb-3 flex items-center justify-between">
+                        <span>Community Reviews (Live Cloud)</span>
+                        <span class="text-xs text-zinc-500 mono">(${reviews.length})</span>
+                    </h3>
+                    <div id="reviewsList" class="space-y-2">
+                        ${reviews.length === 0 ? '<p class="text-zinc-500 text-xs text-center py-6 bg-zinc-900/40 rounded-xl border border-zinc-800/50">No reviews yet. Be the first to review this release!</p>' : ''}
+                        ${reviews.map((rev) => {
+                            const formattedDate = new Date(rev.created_at).toLocaleDateString();
+                            return `
+                                <details class="group bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden transition">
+                                    <summary class="flex items-center justify-between p-3.5 cursor-pointer select-none hover:bg-zinc-800/50">
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-7 h-7 rounded-full bg-zinc-800 flex items-center justify-center font-bold text-xs text-red-500 mono">
+                                                ${rev.name.substring(0,2).toUpperCase()}
+                                            </div>
+                                            <div>
+                                                <span class="text-xs font-bold text-white">${rev.name}</span>
+                                                <span class="text-[10px] text-zinc-400 block">${rev.rating}</span>
+                                            </div>
+                                        </div>
+                                        <div class="flex items-center space-x-2">
+                                            <span class="text-[10px] text-zinc-500 mono">${formattedDate}</span>
+                                            <svg class="w-4 h-4 text-zinc-500 group-open:rotate-180 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </div>
+                                    </summary>
+                                    <div class="px-4 pb-4 pt-1 text-xs text-zinc-300 border-t border-zinc-800/60 leading-relaxed whitespace-pre-wrap">${rev.comment}</div>
+                                </details>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function submitReview(event) {
+            event.preventDefault();
+            const name = document.getElementById('reviewName').value.trim();
+            const rating = document.getElementById('reviewRating').value;
+            const comment = document.getElementById('reviewComment').value.trim();
+
+            if (!name || !comment) return;
+
+            try {
+                const { error } = await supabaseClient
+                    .from('reviews')
+                    .insert([{ album_id: String(activeAlbumId), name, rating, comment }]);
+                
+                if (error) {
+                    alert('Error posting review: ' + error.message);
+                    return;
+                }
+
+                // Refresh detail view to pull the new review from Supabase
+                openAlbumDetail(activeAlbumId);
+            } catch (err) {
+                console.error("Error submitting review:", err);
+            }
+        }
+
+        function backToMain() {
+            document.getElementById('detail-view').classList.add('hidden');
+            document.getElementById('main-view').classList.remove('hidden');
+            activeAlbumId = null;
         }
 
         // Initialize on load
         loadReleases();
 
-        // Register Service Worker for PWA installation
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('ServiceWorker registered!', reg))
-                    .catch(err => console.log('ServiceWorker registration failed:', err));
+                navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW failed:', err));
             });
         }
     </script>
