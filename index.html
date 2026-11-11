@@ -68,7 +68,7 @@
             </div>
         </div>
 
-        <!-- Genre Pill Bar (Power Metal removed) -->
+        <!-- Genre Pill Bar -->
         <div class="flex overflow-x-auto pb-2 mb-5 space-x-2 scrollbar-none">
             <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">All Genres</button>
             <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Hardcore</button>
@@ -138,7 +138,7 @@
                     
                     if (cachedUrl) {
                         item.artUrl = cachedUrl;
-                        renderReleases();
+                        updateCardArtInPlace(item.id, cachedUrl, item.band);
                         continue;
                     }
 
@@ -156,7 +156,7 @@
                                 
                                 item.artUrl = artUrl;
                                 localStorage.setItem(cacheKey, artUrl);
-                                renderReleases();
+                                updateCardArtInPlace(item.id, artUrl, item.band);
                             }
                         }
                         // Respect MusicBrainz rate limit (1 request per second)
@@ -165,6 +165,14 @@
                         console.warn("Could not fetch artwork for", item.band, item.album);
                     }
                 }
+            }
+        }
+
+        function updateCardArtInPlace(id, url, bandName) {
+            const container = document.getElementById(`art-container-${id}`);
+            if (container) {
+                const cacheKey = `art_${bandName}`.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                container.innerHTML = `<img src="${url}" alt="" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${bandName.replace(/'/g, "\\'")}', '${cacheKey}')">`;
             }
         }
 
@@ -237,9 +245,11 @@
                 return `
                     <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm cursor-pointer" onclick="openAlbumDetail(${item.id})">
                         <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
-                            ${artHtml}
-                            <div class="absolute top-2 right-2">${statusBadgeHtml}</div>
-                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                            <div id="art-container-${item.id}" class="w-full h-full">
+                                ${artHtml}
+                            </div>
+                            <div class="absolute top-2 right-2 pointer-events-none">${statusBadgeHtml}</div>
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center pointer-events-none">
                                 <span class="bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">View & Review</span>
                             </div>
                         </div>
