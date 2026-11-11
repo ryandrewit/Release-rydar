@@ -9,29 +9,43 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #09090b; color: #f4f4f5; }
         .mono { font-family: 'JetBrains Mono', monospace; }
+        /* Ultra-dense compact grid to fit many albums on screen */
+        .release-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.75rem;
+        }
+        @media (min-width: 640px) {
+            .release-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .release-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1280px) {
+            .release-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+        }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-red-600 selection:text-white pb-16">
+<body class="min-h-screen selection:bg-red-600 selection:text-white pb-16">
     <!-- App Container -->
-    <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="max-w-7xl mx-auto px-4 py-5">
         
         <!-- Header -->
-        <header class="flex items-center justify-between border-b border-zinc-800 pb-5 mb-6">
+        <header class="flex items-center justify-between border-b border-zinc-800 pb-4 mb-5">
             <div class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center font-black mono text-xl tracking-tighter shadow-lg shadow-red-600/30">
+                <div class="w-9 h-9 rounded-xl bg-red-600 flex items-center justify-center font-black mono text-lg tracking-tighter shadow-lg shadow-red-600/30">
                     RR
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
-                        Release Rydar <span class="text-xs px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 mono font-semibold">LIVE</span>
+                    <h1 class="text-lg font-bold tracking-tight text-white flex items-center gap-2">
+                        Release Rydar <span class="text-[10px] px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 mono font-semibold">LIVE</span>
                     </h1>
-                    <p class="text-xs text-zinc-400">Autonomous Heavy Music Intelligence</p>
+                    <p class="text-[11px] text-zinc-400">Autonomous Heavy Music Intelligence</p>
                 </div>
             </div>
             <div class="flex items-center space-x-2">
@@ -42,61 +56,61 @@
         </header>
 
         <!-- Status / Tab Filter Bar -->
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
             <div class="flex rounded-xl bg-zinc-900 p-1 border border-zinc-800/80 w-full sm:w-auto">
-                <button id="tab-recent" onclick="setTab('recent')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow">
+                <button id="tab-recent" onclick="setTab('recent')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow">
                     Released This Week 🔥
                 </button>
-                <button id="tab-upcoming" onclick="setTab('upcoming')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white">
+                <button id="tab-upcoming" onclick="setTab('upcoming')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white">
                     Upcoming This Month
                 </button>
             </div>
 
             <!-- Search Input -->
-            <div class="relative w-full sm:w-64">
-                <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+            <div class="relative w-full sm:w-60">
+                <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-3.5 py-1.5 text-xs text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
             </div>
         </div>
 
         <!-- Genre Pill Bar -->
-        <div class="flex overflow-x-auto pb-2 mb-6 space-x-2 scrollbar-none">
-            <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">
+        <div class="flex overflow-x-auto pb-2 mb-5 space-x-2 scrollbar-none">
+            <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">
                 All Genres
             </button>
-            <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Hardcore
             </button>
-            <button onclick="filterGenre('Metalcore')" id="genre-Metalcore" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Metalcore')" id="genre-Metalcore" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Metalcore
             </button>
-            <button onclick="filterGenre('Post-Metal')" id="genre-Post-Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Post-Metal')" id="genre-Post-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Post-Metal
             </button>
-            <button onclick="filterGenre('Doom Metal')" id="genre-Doom Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Doom Metal')" id="genre-Doom Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Doom Metal
             </button>
-            <button onclick="filterGenre('Death Metal')" id="genre-Death Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Death Metal')" id="genre-Death Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Death Metal
             </button>
-            <button onclick="filterGenre('Math Metal')" id="genre-Math Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Math Metal')" id="genre-Math Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Math Metal
             </button>
-            <button onclick="filterGenre('Prog Metal')" id="genre-Prog Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Prog Metal')" id="genre-Prog Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Prog Metal
             </button>
-            <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+            <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
                 Metal
             </button>
         </div>
 
-        <!-- Release Grid -->
-        <div id="releaseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Release Grid (Compact Pill-Box Layout) -->
+        <div id="releaseGrid" class="release-grid">
             <!-- Dynamically populated from releases.json -->
         </div>
 
         <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-16">
-            <p class="text-zinc-500 text-sm">No releases found matching your criteria.</p>
+            <p class="text-zinc-500 text-xs">No releases found matching your criteria.</p>
         </div>
     </div>
 
@@ -115,9 +129,9 @@
             } catch (err) {
                 console.error("Error fetching releases:", err);
                 document.getElementById('releaseGrid').innerHTML = `
-                    <div class="col-span-full p-6 bg-red-950/40 border border-red-900/50 rounded-2xl text-center">
-                        <p class="text-red-400 text-sm font-medium">Could not load releases data.</p>
-                        <p class="text-zinc-500 text-xs mt-1">Make sure releases.json is in your repository root.</p>
+                    <div style="grid-column: 1 / -1;" class="p-5 bg-red-950/40 border border-red-900/50 rounded-xl text-center">
+                        <p class="text-red-400 text-xs font-medium">Could not load releases data.</p>
+                        <p class="text-zinc-500 text-[10px] mt-1">Make sure releases.json is in your repository root.</p>
                     </div>
                 `;
             }
@@ -126,11 +140,11 @@
         function setTab(tab) {
             currentTab = tab;
             document.getElementById('tab-recent').className = tab === 'recent' 
-                ? 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow' 
-                : 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white';
+                ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' 
+                : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
             document.getElementById('tab-upcoming').className = tab === 'upcoming' 
-                ? 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow' 
-                : 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white';
+                ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' 
+                : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
             renderReleases();
         }
 
@@ -139,9 +153,9 @@
             document.querySelectorAll('.genre-pill').forEach(btn => {
                 const isSelected = btn.textContent.trim().toLowerCase() === (genre === 'All' ? 'all genres' : genre.toLowerCase());
                 if (isSelected) {
-                    btn.className = 'genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950';
+                    btn.className = 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950';
                 } else {
-                    btn.className = 'genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200';
+                    btn.className = 'genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200';
                 }
             });
             renderReleases();
@@ -170,31 +184,31 @@
                 const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}`;
                 const artHtml = item.artUrl 
                     ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
-                    : `<div class="w-full h-full bg-gradient-to-br ${item.artBg || 'from-zinc-900 to-black'} flex items-center justify-center font-mono font-extrabold text-2xl text-zinc-700 tracking-tighter">${item.icon || item.band.substring(0,2).toUpperCase()}</div>`;
+                    : `<div class="w-full h-full bg-gradient-to-br ${item.artBg || 'from-zinc-900 to-black'} flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.icon || item.band.substring(0,2).toUpperCase()}</div>`;
 
                 return `
-                    <div class="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col hover:border-zinc-700 transition group">
-                        <div class="relative aspect-square bg-zinc-950 overflow-hidden">
+                    <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm">
+                        <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
                             ${artHtml}
-                            <div class="absolute top-3 left-3 bg-zinc-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-semibold text-zinc-300 uppercase tracking-wider border border-zinc-800">
+                            <div class="absolute top-2 left-2 bg-zinc-950/80 backdrop-blur-md px-2 py-0.5 rounded-full text-[9px] font-semibold text-zinc-300 uppercase tracking-wider border border-zinc-800">
                                 ${item.type || 'Album'}
                             </div>
                         </div>
-                        <div class="p-4 flex flex-col flex-1 justify-between">
+                        <div class="p-3 flex flex-col flex-1 justify-between">
                             <div>
-                                <div class="flex items-center justify-between text-xs text-zinc-400 mb-1">
-                                    <span class="font-medium text-red-500">${item.genre}</span>
-                                    <span>${item.date}</span>
+                                <div class="flex items-center justify-between text-[10px] text-zinc-400 mb-1">
+                                    <span class="font-medium text-red-500 truncate max-w-[70%]" title="${item.genre}">${item.genre}</span>
+                                    <span class="mono">${item.date}</span>
                                 </div>
-                                <h3 class="font-bold text-white text-base leading-snug group-hover:text-red-400 transition">${item.band}</h3>
-                                <p class="text-zinc-400 text-sm mt-0.5 line-clamp-1">${item.album}</p>
+                                <h3 class="font-bold text-white text-xs leading-tight group-hover:text-red-400 transition line-clamp-1" title="${item.band}">${item.band}</h3>
+                                <p class="text-zinc-400 text-[11px] mt-0.5 line-clamp-1" title="${item.album}">${item.album}</p>
                             </div>
-                            <div class="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between">
-                                <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.78-2.22-11.22-1.24-.42.06-.84-.18-.9-.6-.06-.42.18-.84.6-.9 4.86-1.08 9.06-.6 12.48 1.56.36.24.48.72.24 1.04zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.58-2.71-12.6-1.48-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.62-1.38 10.38-.72 14.34 1.74.48.3.6 1.02.3 1.42zm.12-3.66C15.24 7.92 8.82 7.68 5.16 8.82c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.2-1.26 11.4-0.96 15.6 1.5.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
-                                    <span>Spotify Search</span>
+                            <div class="mt-3 pt-2 border-t border-zinc-800/60 flex items-center justify-between">
+                                <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1 text-[10px] font-semibold text-emerald-400 hover:text-emerald-300 transition">
+                                    <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.78-2.22-11.22-1.24-.42.06-.84-.18-.9-.6-.06-.42.18-.84.6-.9 4.86-1.08 9.06-.6 12.48 1.56.36.24.48.72.24 1.04zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.58-2.71-12.6-1.48-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.62-1.38 10.38-.72 14.34 1.74.48.3.6 1.02.3 1.42zm.12-3.66C15.24 7.92 8.82 7.68 5.16 8.82c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.2-1.26 11.4-0.96 15.6 1.5.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
+                                    <span>Spotify</span>
                                 </a>
-                                <span class="text-[10px] text-zinc-500 mono">${item.status.toUpperCase()}</span>
+                                <span class="text-[9px] text-zinc-500 mono">${item.status.toUpperCase()}</span>
                             </div>
                         </div>
                     </div>
