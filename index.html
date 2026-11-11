@@ -122,8 +122,49 @@
                 if (!response.ok) throw new Error('Failed to load releases.json');
                 allReleases = await response.json();
                 renderReleases();
+                
+                // Trigger background artwork enrichment for any missing art
+                enrichMissingArtworks();
             } catch (err) {
                 console.error("Error fetching releases:", err);
+            }
+        }
+
+        async function enrichMissingArtworks() {
+            for (let item of allReleases) {
+                if (!item.artUrl) {
+                    const cacheKey = `art_${item.band}_${item.album}`.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    const cachedUrl = localStorage.getItem(cacheKey);
+                    
+                    if (cachedUrl) {
+                        item.artUrl = cachedUrl;
+                        renderReleases();
+                        continue;
+                    }
+
+                    try {
+                        const query = encodeURIComponent(`artist:"${item.band}" release:"${item.album}"`);
+                        const res = await fetch(`https://musicbrainz.org/ws/2/release/?query=${query}&fmt=json`, {
+                            headers: { 'User-Agent': 'ReleaseRydar/1.0 (admin@releaserydar.app)' }
+                        });
+                        
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data.releases && data.releases.length > 0) {
+                                const mbid = data.releases[0].id;
+                                const artUrl = `https://coverartarchive.org/release/${mbid}/front`;
+                                
+                                item.artUrl = artUrl;
+                                localStorage.setItem(cacheKey, artUrl);
+                                renderReleases();
+                            }
+                        }
+                        // Respect MusicBrainz rate limit (1 request per second)
+                        await new Promise(r => setTimeout(r, 1100));
+                    } catch (err) {
+                        console.warn("Could not fetch artwork for", item.band, item.album);
+                    }
+                }
             }
         }
 
@@ -176,7 +217,7 @@
                     : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Released</span>`;
 
                 const artHtml = item.artUrl 
-                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
+                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter\'>${item.band.substring(0,2).toUpperCase()}</div>';">`
                     : `<div class="w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.band.substring(0,2).toUpperCase()}</div>`;
 
                 return `
