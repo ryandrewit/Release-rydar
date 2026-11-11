@@ -7,7 +7,7 @@
         "type": "Album",
         "date": "2026-11-20",
         "status": "upcoming",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music114/v4/01/69/02/01690216-48fc-1c54-b1de-48170d16b1c3/00602567725268.rgb.jpg/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-zinc-900 via-neutral-900 to-black",
         "icon": "DW"
     },
@@ -103,7 +103,7 @@
         "type": "Single",
         "date": "2026-11-06",
         "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/12/00/38/120038dc-ef69-927e-aeb9-1afe6f4fef70/cover.jpg/600x600bb.jpg",
+        "artUrl": "",
         "artBg": "from-zinc-900 via-neutral-900 to-black",
         "icon": "FF"
     },
