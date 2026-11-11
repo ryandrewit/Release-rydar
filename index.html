@@ -51,16 +51,24 @@
                     <p class="text-[11px] text-zinc-400">Bennet style heavy music release list</p>
                 </div>
             </div>
+            <div>
+                <button onclick="toggleNotifications()" id="notifBtn" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
+                    <span>🔔</span> <span id="notifText">Enable Alerts</span>
+                </button>
+            </div>
         </header>
 
         <!-- Status / Tab Filter Bar -->
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-5">
-            <div class="flex rounded-xl bg-zinc-900 p-1 border border-zinc-800/80 w-full sm:w-auto">
-                <button id="tab-recent" onclick="setTab('recent')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow">
+            <div class="flex rounded-xl bg-zinc-900 p-1 border border-zinc-800/80 w-full sm:w-auto overflow-x-auto">
+                <button id="tab-recent" onclick="setTab('recent')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow whitespace-nowrap">
                     New Releases 🔥
                 </button>
-                <button id="tab-upcoming" onclick="setTab('upcoming')" class="flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white">
+                <button id="tab-upcoming" onclick="setTab('upcoming')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white whitespace-nowrap">
                     Upcoming This Month
+                </button>
+                <button id="tab-favourites" onclick="setTab('favourites')" class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white whitespace-nowrap">
+                    Favourites ⭐
                 </button>
             </div>
             <div class="relative w-full sm:w-60">
@@ -111,6 +119,14 @@
         let currentTab = 'recent';
         let currentGenre = 'All';
         let activeAlbumId = null;
+        let userFavorites = new Set();
+
+        // Anonymous device ID for favorites persistence
+        let deviceUuid = localStorage.getItem('rydar_device_id');
+        if (!deviceUuid) {
+            deviceUuid = 'dev_' + Math.random().toString(36).substring(2) + Date.now().toString(36);
+            localStorage.setItem('rydar_device_id', deviceUuid);
+        }
 
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const now = new Date();
@@ -121,12 +137,92 @@
                 const response = await fetch('./releases.json?t=' + Date.now());
                 if (!response.ok) throw new Error('Failed to load releases.json');
                 allReleases = await response.json();
-                renderReleases();
                 
-                // Trigger background artwork enrichment for any missing art
+                await loadFavorites();
+                renderReleases();
                 enrichMissingArtworks();
+                checkNotificationStatus();
             } catch (err) {
                 console.error("Error fetching releases:", err);
+            }
+        }
+
+        async function loadFavorites() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('favourites')
+                    .select('album_id')
+                    .eq('device_uuid', deviceUuid);
+                if (!error && data) {
+                    userFavorites = new Set(data.map(f => String(f.album_id)));
+                }
+            } catch (err) {
+                console.error("Error loading favorites:", err);
+            }
+        }
+
+        async function toggleFavorite(event, albumId) {
+            event.stopPropagation(); // prevent opening album detail
+            const idStr = String(albumId);
+            const heartBtn = document.getElementById(`fav-btn-${albumId}`);
+
+            if (userFavorites.has(idStr)) {
+                userFavorites.delete(idStr);
+                if (heartBtn) heartBtn.innerHTML = '🤍';
+                await supabaseClient
+                    .from('favourites')
+                    .delete()
+                    .eq('device_uuid', deviceUuid)
+                    .eq('album_id', idStr);
+            } else {
+                userFavorites.add(idStr);
+                if (heartBtn) heartBtn.innerHTML = '❤️';
+                await supabaseClient
+                    .from('favourites')
+                    .insert([{ device_uuid: deviceUuid, album_id: idStr }]);
+                
+                // Trigger a friendly notification if enabled
+                if (Notification.permission === 'granted') {
+                    const item = allReleases.find(r => r.id === albumId);
+                    if (item) {
+                        new Notification("Release Rydar ⭐", {
+                            body: `Added ${item.band} - ${item.album} to your favourites!`,
+                            icon: './favicon.ico'
+                        });
+                    }
+                }
+            }
+
+            if (currentTab === 'favourites') {
+                renderReleases();
+            }
+        }
+
+        function checkNotificationStatus() {
+            const notifText = document.getElementById('notifText');
+            if (Notification.permission === 'granted') {
+                notifText.textContent = 'Alerts Active';
+            } else if (Notification.permission === 'denied') {
+                notifText.textContent = 'Alerts Blocked';
+            }
+        }
+
+        async function toggleNotifications() {
+            if (!('Notification' in window)) {
+                alert('This browser does not support desktop notifications.');
+                return;
+            }
+
+            if (Notification.permission === 'granted') {
+                alert('Notifications are already active for Release Rydar!');
+            } else {
+                const permission = await Notification.requestPermission();
+                checkNotificationStatus();
+                if (permission === 'granted') {
+                    new Notification("Release Rydar 🤘", {
+                        body: 'You will now receive alerts for your favorite heavy music drops!',
+                    });
+                }
             }
         }
 
@@ -159,7 +255,6 @@
                                 updateCardArtInPlace(item.id, artUrl, item.band);
                             }
                         }
-                        // Respect MusicBrainz rate limit (1 request per second)
                         await new Promise(r => setTimeout(r, 1100));
                     } catch (err) {
                         console.warn("Could not fetch artwork for", item.band, item.album);
@@ -191,8 +286,14 @@
 
         function setTab(tab) {
             currentTab = tab;
-            document.getElementById('tab-recent').className = tab === 'recent' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
-            document.getElementById('tab-upcoming').className = tab === 'upcoming' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
+            ['recent', 'upcoming', 'favourites'].forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (t === tab) {
+                    btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow whitespace-nowrap';
+                } else {
+                    btn.className = 'px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white whitespace-nowrap';
+                }
+            });
             renderReleases();
         }
 
@@ -215,7 +316,13 @@
 
             let filtered = allReleases.filter(item => {
                 const calcStatus = item.date > todayStr ? 'upcoming' : 'recent';
-                const matchesTab = calcStatus === currentTab;
+                let matchesTab = false;
+                if (currentTab === 'favourites') {
+                    matchesTab = userFavorites.has(String(item.id));
+                } else {
+                    matchesTab = (calcStatus === currentTab);
+                }
+
                 const matchesGenre = currentGenre === 'All' || item.genre.toLowerCase().includes(currentGenre.toLowerCase());
                 const matchesSearch = item.band.toLowerCase().includes(query) || item.album.toLowerCase().includes(query);
                 return matchesTab && matchesGenre && matchesSearch;
@@ -237,6 +344,9 @@
                     ? `<span class="bg-amber-950/80 text-amber-400 border border-amber-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Upcoming</span>`
                     : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Released</span>`;
 
+                const isFav = userFavorites.has(String(item.id));
+                const heartIcon = isFav ? '❤️' : '🤍';
+
                 const cacheKey = `art_${item.band}_${item.album}`.toLowerCase().replace(/[^a-z0-9]/g, '_');
                 const artHtml = item.artUrl 
                     ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="handleImageError(this, '${item.band.replace(/'/g, "\\'")}', '${cacheKey}')">`
@@ -247,6 +357,11 @@
                         <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
                             <div id="art-container-${item.id}" class="w-full h-full">
                                 ${artHtml}
+                            </div>
+                            <div class="absolute top-2 left-2 z-10">
+                                <button id="fav-btn-${item.id}" onclick="toggleFavorite(event, ${item.id})" class="w-7 h-7 rounded-full bg-black/60 backdrop-blur border border-white/10 flex items-center justify-center text-xs hover:scale-110 transition shadow">
+                                    ${heartIcon}
+                                </button>
                             </div>
                             <div class="absolute top-2 right-2 pointer-events-none">${statusBadgeHtml}</div>
                             <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center pointer-events-none">
@@ -297,9 +412,16 @@
                 console.error("Error fetching reviews:", err);
             }
 
+            const isFav = userFavorites.has(String(id));
+
             document.getElementById('detailContent').innerHTML = `
                 <div class="flex flex-col sm:flex-row items-center sm:items-start gap-5 bg-zinc-900/60 p-5 rounded-2xl border border-zinc-800">
-                    ${artHtml}
+                    <div class="relative">
+                        ${artHtml}
+                        <button onclick="toggleFavorite(event, ${item.id})" class="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-black/70 backdrop-blur border border-white/20 flex items-center justify-center text-sm shadow">
+                            ${isFav ? '❤️' : '🤍'}
+                        </button>
+                    </div>
                     <div class="text-center sm:text-left flex-1">
                         <span class="text-xs font-semibold text-red-500 uppercase tracking-wider">${item.genre} • ${item.type || 'Album'}</span>
                         <h2 class="text-xl font-extrabold text-white mt-1">${item.band}</h2>
@@ -405,6 +527,7 @@
             document.getElementById('detail-view').classList.add('hidden');
             document.getElementById('main-view').classList.remove('hidden');
             activeAlbumId = null;
+            renderReleases();
         }
 
         loadReleases();
