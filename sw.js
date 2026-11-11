@@ -1,4 +1,4 @@
-const CACHE_NAME = 'release-rydar-v6';
+const CACHE_NAME = 'release-rydar-v7';
 const ASSETS_TO_CACHE = [
     './',
     './index.html',
