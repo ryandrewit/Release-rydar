@@ -1,170 +1,114 @@
 [
-    {
-        "id": 1,
-        "band": "Down",
-        "album": "Volume V",
-        "genre": "Doom Metal",
-        "type": "Album",
-        "date": "2026-11-20",
-        "status": "upcoming",
-        "artUrl": "",
-        "artBg": "from-zinc-900 via-neutral-900 to-black",
-        "icon": "DW"
-    },
-    {
-        "id": 2,
-        "band": "Trivium",
-        "album": "Crown In The Grave",
-        "genre": "Metal",
-        "type": "Album",
-        "date": "2026-11-20",
-        "status": "upcoming",
-        "artUrl": "",
-        "artBg": "from-red-900 via-zinc-900 to-black",
-        "icon": "TR"
-    },
-    {
-        "id": 3,
-        "band": "Suicide Silence",
-        "album": "Graceless",
-        "genre": "Deathcore",
-        "type": "Album",
-        "date": "2026-11-20",
-        "status": "upcoming",
-        "artUrl": "",
-        "artBg": "from-zinc-950 via-red-950 to-black",
-        "icon": "SS"
-    },
-    {
-        "id": 4,
-        "band": "Artificial Brain",
-        "album": "Antillia",
-        "genre": "Death Metal",
-        "type": "Album",
-        "date": "2026-11-13",
-        "status": "upcoming",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/f5/91/9d/f5919d0d-1e6e-e4f0-461b-ad02e66bb24f/Antillia_COVER.jpg/600x600bb.jpg",
-        "artBg": "from-indigo-950 via-zinc-900 to-black",
-        "icon": "AB"
-    },
-    {
-        "id": 5,
-        "band": "Assumption",
-        "album": "Paradox Of The Arrow",
-        "genre": "Doom Metal",
-        "type": "Album",
-        "date": "2026-11-13",
-        "status": "upcoming",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c0/52/61/c0526146-6d30-e392-0c87-485530ef4969/810079502653.jpg/600x600bb.jpg",
-        "artBg": "from-stone-900 via-zinc-950 to-black",
-        "icon": "ASP"
-    },
-    {
-        "id": 6,
-        "band": "Walls Of Jericho",
-        "album": "System Error : Humanity",
-        "genre": "Hardcore",
-        "type": "Album",
-        "date": "2026-11-13",
-        "status": "upcoming",
-        "artUrl": "",
-        "artBg": "from-red-950 via-zinc-900 to-black",
-        "icon": "WOJ"
-    },
-    {
-        "id": 7,
-        "band": "Meridian Veil",
-        "album": "The Watcher",
-        "genre": "Prog Metal",
-        "type": "Single",
-        "date": "2026-11-10",
-        "status": "recent",
-        "artUrl": "",
-        "artBg": "from-zinc-900 via-purple-950 to-black",
-        "icon": "MV"
-    },
-    {
-        "id": 8,
-        "band": "Sikth",
-        "album": "Bland Street Bloom (MMXXVI)",
-        "genre": "Math Metal",
-        "type": "Single",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "",
-        "artBg": "from-emerald-950 via-zinc-900 to-black",
-        "icon": "SK"
-    },
-    {
-        "id": 9,
-        "band": "Fear Factory",
-        "album": "Detonizer",
-        "genre": "Metal",
-        "type": "Single",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/12/00/38/120038dc-ef69-927e-aeb9-1afe6f4fef70/cover.jpg/600x600bb.jpg",
-        "artBg": "from-zinc-900 via-neutral-900 to-black",
-        "icon": "FF"
-    },
-    {
-        "id": 10,
-        "band": "Coilguns",
-        "album": "Everything We Love, We Destroy",
-        "genre": "Post-Hardcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b4/56/03/b456032a-4398-d241-3586-1f6f6405106c/7640186559980.png/600x600bb.jpg",
-        "artBg": "from-blue-950 via-zinc-900 to-black",
-        "icon": "CG"
-    },
-    {
-        "id": 11,
-        "band": "Underdark",
-        "album": "O Come Forth Annihilation",
-        "genre": "Post-Metal",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "",
-        "artBg": "from-teal-950 via-zinc-900 to-black",
-        "icon": "UD"
-    },
-    {
-        "id": 12,
-        "band": "Cult of Luna",
-        "album": "In the Shadow of Your Shadow",
-        "genre": "Post-Metal",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/69/66/ed/6966eddd-3265-0110-0519-47e2a629adeb/820233817530.jpg/600x600bb.jpg",
-        "artBg": "from-zinc-900 via-neutral-900 to-black",
-        "icon": "C/L"
-    },
-    {
-        "id": 13,
-        "band": "Comeback Kid",
-        "album": "Chosen Hell",
-        "genre": "Hardcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "",
-        "artBg": "from-red-950 via-zinc-900 to-black",
-        "icon": "CBK"
-    },
-    {
-        "id": 14,
-        "band": "Hatebreed",
-        "album": "Fatal Paradox",
-        "genre": "Metalcore",
-        "type": "Album",
-        "date": "2026-11-06",
-        "status": "recent",
-        "artUrl": "",
-        "artBg": "from-stone-900 via-zinc-950 to-black",
-        "icon": "HB"
-    }
+  {
+    "id": 1,
+    "band": "Comeback Kid",
+    "album": "Chosen Hell",
+    "genre": "Hardcore",
+    "date": "2026-11-06",
+    "type": "Album"
+  },
+  {
+    "id": 2,
+    "band": "Hatebreed",
+    "album": "Fatal Paradox",
+    "genre": "Hardcore",
+    "date": "2026-11-06",
+    "type": "Album"
+  },
+  {
+    "id": 3,
+    "band": "Konvent",
+    "album": "Firesky",
+    "genre": "Doom Metal",
+    "date": "2026-11-06",
+    "type": "Album"
+  },
+  {
+    "id": 4,
+    "band": "Cult of Luna",
+    "album": "In The Shadow Of Your Shadow",
+    "genre": "Post-Metal",
+    "date": "2026-11-06",
+    "type": "Album"
+  },
+  {
+    "id": 5,
+    "band": "Commoner",
+    "album": "Former Self",
+    "genre": "Hardcore",
+    "date": "2026-11-13",
+    "type": "Album"
+  },
+  {
+    "id": 6,
+    "band": "Artificial Brain",
+    "album": "Antillia",
+    "genre": "Death Metal",
+    "date": "2026-11-13",
+    "type": "Album"
+  },
+  {
+    "id": 7,
+    "band": "Assumption",
+    "album": "Paradox of the Arrow",
+    "genre": "Doom Metal",
+    "date": "2026-11-13",
+    "type": "Album"
+  },
+  {
+    "id": 8,
+    "band": "Det Eviga Leendet",
+    "album": "Vehemence",
+    "genre": "Black Metal",
+    "date": "2026-11-13",
+    "type": "Album"
+  },
+  {
+    "id": 9,
+    "band": "Angelus Apatrida",
+    "album": "The Reckoning",
+    "genre": "Thrash Metal",
+    "date": "2026-11-20",
+    "type": "EP"
+  },
+  {
+    "id": 10,
+    "band": "Thy Catafalque",
+    "album": "XIII: Sárga erdő",
+    "genre": "Prog Metal",
+    "date": "2026-11-20",
+    "type": "Album"
+  },
+  {
+    "id": 11,
+    "band": "Down",
+    "album": "Volume V",
+    "genre": "Metal",
+    "date": "2026-11-20",
+    "type": "Album"
+  },
+  {
+    "id": 12,
+    "band": "Domkraft",
+    "album": "Night Songs",
+    "genre": "Doom Metal",
+    "date": "2026-11-20",
+    "type": "Album"
+  },
+  {
+    "id": 13,
+    "band": "Leviathan",
+    "album": "Die To This",
+    "genre": "Black Metal",
+    "date": "2026-11-27",
+    "type": "Album"
+  },
+  {
+    "id": 14,
+    "band": "Sacral Rage",
+    "album": "Ark Of Cosmic Resonance",
+    "genre": "Speed/Prog Metal",
+    "date": "2026-11-27",
+    "type": "Album"
+  }
 ]
