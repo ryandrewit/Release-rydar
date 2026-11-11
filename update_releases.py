@@ -6,7 +6,7 @@ import urllib.parse
 import xml.etree.ElementTree as ET
 import re
 
-print("=== Release Rydar Heavy Music Auto-Crawler ===")
+print("=== Release Rydar Autonomous Heavy Music Crawler ===")
 today = datetime.date.today()
 print(f"Running automated scan for: {today.strftime('%B %d, %Y')}")
 
@@ -23,10 +23,11 @@ if os.path.exists(json_path):
 
 existing_keys = {f"{item['band'].lower()} - {item['album'].lower()}" for item in releases}
 
-# Trusted heavy music RSS feeds / release logs
-# These feeds regularly publish weekly release columns and single drops
+# Multi-channel heavy music feeds for real-time single and album discovery
 rss_sources = [
-    "https://www.theprp.com/feed/", # Known for heavy weekly release lists
+    "https://www.theprp.com/feed/",
+    "https://blabbermouth.net/feed",
+    "https://www.kerrang.com/rss.xml"
 ]
 
 for feed_url in rss_sources:
@@ -36,18 +37,24 @@ for feed_url in rss_sources:
             xml_data = response.read()
             root = ET.fromstring(xml_data)
             
-            # Parse RSS items
+            # Parse RSS feed items
             for item in root.findall('.//item'):
                 title = item.find('title')
                 if title is not None and title.text:
-                    text = title.text
-                    # Look for release announcement patterns like "Band Name - Album Title" or "Band Name Premiere"
-                    if "releases" in text.lower() or "stream" in text.lower() or "single" in text.lower() or "album" in text.lower():
-                        # Simple heuristic extraction (Band - Album separator)
-                        parts = re.split(r'[-–—:]', text)
+                    text = title.text.strip()
+                    
+                    # Target keywords for single/album releases and announcements
+                    lower_text = text.lower()
+                    if any(kw in lower_text for kw in ["release", "single", "album", "announce", "premiere", "stream", "track"]):
+                        # Clean up common prefixes like "Review:", "News:", etc.
+                        cleaned_text = re.sub(r'^(News|Review|Premiere|Stream):\s*', '', text, flags=re.IGNORECASE)
+                        
+                        # Split by typical separators (dash, colon, em-dash)
+                        parts = re.split(r'[-–—:]', cleaned_text)
                         if len(parts) >= 2:
                             band_name = parts[0].strip()
-                            album_title = parts[1].strip().split('(')[0].strip() # Clean up trailing info
+                            # Clean up trailing parentheses or extra promotional taglines
+                            album_title = parts[1].strip().split('(')[0].split('"')[1] if '"' in parts[1] else parts[1].strip().split('(')[0].strip()
                             
                             key = f"{band_name.lower()} - {album_title.lower()}"
                             if key not in existing_keys and len(band_name) > 1 and len(album_title) > 1:
@@ -65,11 +72,11 @@ for feed_url in rss_sources:
                                 }
                                 releases.insert(0, new_item)
                                 existing_keys.add(key)
-                                print(f"Auto-captured from feed: {band_name} - {album_title}")
+                                print(f"Auto-captured new drop: {band_name} - {album_title}")
     except Exception as e:
         print(f"Notice: Error parsing feed {feed_url}: {e}")
 
-# Automatically fetch official artwork for any items missing artUrl
+# Automatically fetch official high-res artwork for any items missing artUrl
 for item in releases:
     if not item.get("artUrl") or item.get("artUrl") == "":
         search_term = f"{item['band']} {item['album']}"
@@ -91,4 +98,4 @@ for item in releases:
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(releases, f, indent=4)
     
-print("Auto-crawler sync complete!")
+print("Autonomous crawler sync completed successfully!")
