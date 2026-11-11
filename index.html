@@ -27,10 +27,6 @@
         @media (min-width: 1280px) {
             .release-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
         }
-        /* Custom scrollbars for horizontal carousels */
-        .carousel-track::-webkit-scrollbar { height: 4px; }
-        .carousel-track::-webkit-scrollbar-track { background: #09090b; }
-        .carousel-track::-webkit-scrollbar-thumb { background: #27272a; border-radius: 2px; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: #09090b; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
@@ -85,59 +81,12 @@
             <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3 py-1 rounded-full text-[11px] font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800">Metal</button>
         </div>
 
-        <!-- NEW RELEASES VIEW WITH DAILY & WEEKLY CAROUSELS -->
-        <div id="recent-view-container" class="space-y-6">
-            <!-- Daily Carousel Section -->
-            <div id="daily-section">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                        <span>⚡ Today's Drops (Daily)</span>
-                        <span id="dailyCount" class="text-[10px] px-2 py-0.5 rounded-full bg-red-950 text-red-400 border border-red-800/50 mono">0</span>
-                    </h2>
-                </div>
-                <div id="dailyCarousel" class="carousel-track flex overflow-x-auto space-x-3 pb-3 scroll-smooth">
-                    <!-- Populated dynamically -->
-                </div>
-                <div id="dailyEmpty" class="hidden text-zinc-500 text-xs py-3 bg-zinc-900/40 rounded-xl px-4 border border-zinc-800/50">
-                    No new heavy releases dropping today. Check the weekly feed below!
-                </div>
-            </div>
-
-            <!-- Weekly Carousel Section -->
-            <div id="weekly-section" class="pt-2">
-                <div class="flex items-center justify-between mb-3">
-                    <h2 class="text-xs font-bold uppercase tracking-wider text-white flex items-center gap-2">
-                        <span>🔥 This Week's Releases (Past 7 Days)</span>
-                        <span id="weeklyCount" class="text-[10px] px-2 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700 mono">0</span>
-                    </h2>
-                </div>
-                <div id="weeklyCarousel" class="carousel-track flex overflow-x-auto space-x-3 pb-3 scroll-smooth">
-                    <!-- Populated dynamically -->
-                </div>
-                <div id="weeklyEmpty" class="hidden text-zinc-500 text-xs py-3 bg-zinc-900/40 rounded-xl px-4 border border-zinc-800/50">
-                    No releases recorded for this week.
-                </div>
-            </div>
-
-            <!-- Complete Recent Grid -->
-            <div class="pt-4 border-t border-zinc-800/80">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-zinc-400 mb-3">All Recent Releases</h2>
-                <div id="releaseGrid" class="release-grid"></div>
-            </div>
-        </div>
-
-        <!-- UPCOMING VIEW CONTAINER (Hidden by default) -->
-        <div id="upcoming-view-container" class="hidden">
-            <h2 class="text-xs font-bold uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-2">
-                <span>⏳ Upcoming This Month</span>
-                <span id="upcomingCount" class="text-[10px] px-2 py-0.5 rounded-full bg-amber-950 text-amber-400 border border-amber-800/50 mono">0</span>
-            </h2>
-            <div id="upcomingGrid" class="release-grid"></div>
-        </div>
+        <!-- Release Grid -->
+        <div id="releaseGrid" class="release-grid"></div>
 
         <!-- Empty State -->
         <div id="emptyState" class="hidden text-center py-16">
-            <p class="text-zinc-500 text-xs">No releases found matching your search or genre filter.</p>
+            <p class="text-zinc-500 text-xs">No releases found matching your criteria.</p>
         </div>
     </div>
 
@@ -167,20 +116,6 @@
         const now = new Date();
         document.getElementById('currentMonthBadge').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
 
-        // Robust local date formatting (YYYY-MM-DD) avoiding UTC timezone shifts
-        const year = now.getFullYear();
-        const month = String(now.getMonth() + 1).padStart(2, '0');
-        const day = String(now.getDate()).padStart(2, '0');
-        const todayStr = `${year}-${month}-${day}`;
-
-        // Calculate 7 days ago string (YYYY-MM-DD)
-        const pastDate = new Date(now);
-        pastDate.setDate(now.getDate() - 7);
-        const pYear = pastDate.getFullYear();
-        const pMonth = String(pastDate.getMonth() + 1).padStart(2, '0');
-        const pDay = String(pastDate.getDate()).padStart(2, '0');
-        const sevenDaysAgoStr = `${pYear}-${pMonth}-${pDay}`;
-
         async function loadReleases() {
             try {
                 const response = await fetch('./releases.json?t=' + Date.now());
@@ -194,22 +129,8 @@
 
         function setTab(tab) {
             currentTab = tab;
-            const recentBtn = document.getElementById('tab-recent');
-            const upcomingBtn = document.getElementById('tab-upcoming');
-            const recentContainer = document.getElementById('recent-view-container');
-            const upcomingContainer = document.getElementById('upcoming-view-container');
-
-            if (tab === 'recent') {
-                recentBtn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow';
-                upcomingBtn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
-                recentContainer.classList.remove('hidden');
-                upcomingContainer.classList.add('hidden');
-            } else {
-                upcomingBtn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow';
-                recentBtn.className = 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
-                upcomingContainer.classList.remove('hidden');
-                recentContainer.classList.add('hidden');
-            }
+            document.getElementById('tab-recent').className = tab === 'recent' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
+            document.getElementById('tab-upcoming').className = tab === 'upcoming' ? 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition bg-red-600 text-white shadow' : 'flex-1 sm:flex-none px-3.5 py-1.5 rounded-lg text-xs font-medium transition text-zinc-400 hover:text-white';
             renderReleases();
         }
 
@@ -224,117 +145,62 @@
             renderReleases();
         }
 
-        function renderCardHtml(item, badgeText, badgeClass) {
-            const artHtml = item.artUrl 
-                ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
-                : `<div class="w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.band.substring(0,2).toUpperCase()}</div>`;
-
-            return `
-                <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm cursor-pointer" onclick="openAlbumDetail(${item.id})">
-                    <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
-                        ${artHtml}
-                        <div class="absolute top-2 right-2"><span class="${badgeClass} text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">${badgeText}</span></div>
-                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
-                            <span class="bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">View & Review</span>
-                        </div>
-                    </div>
-                    <div class="p-3 flex flex-col flex-1 justify-between">
-                        <div>
-                            <div class="flex items-center justify-between text-[10px] text-zinc-400 mb-1">
-                                <span class="font-medium text-red-500 truncate max-w-[65%]" title="${item.genre}">${item.genre}</span>
-                                <span class="mono">${item.date}</span>
-                            </div>
-                            <h3 class="font-bold text-white text-xs leading-tight group-hover:text-red-400 transition line-clamp-1" title="${item.band}">${item.band}</h3>
-                            <p class="text-zinc-400 text-[11px] mt-0.5 line-clamp-1" title="${item.album}">${item.album}</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
         function renderReleases() {
             const query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('releaseGrid');
             const emptyState = document.getElementById('emptyState');
+            const todayStr = new Date().toISOString().split('T')[0];
 
-            // Global filter by search & genre
-            const filteredAll = allReleases.filter(item => {
+            let filtered = allReleases.filter(item => {
+                const calcStatus = item.date > todayStr ? 'upcoming' : 'recent';
+                const matchesTab = calcStatus === currentTab;
                 const matchesGenre = currentGenre === 'All' || item.genre.toLowerCase().includes(currentGenre.toLowerCase());
                 const matchesSearch = item.band.toLowerCase().includes(query) || item.album.toLowerCase().includes(query);
-                return matchesGenre && matchesSearch;
+                return matchesTab && matchesGenre && matchesSearch;
             });
 
-            // Split into recent vs upcoming
-            const recentItems = filteredAll.filter(item => item.date <= todayStr);
-            const upcomingItems = filteredAll.filter(item => item.date > todayStr);
+            // SORT: Newest to Oldest (Descending date order)
+            filtered.sort((a, b) => b.date.localeCompare(a.date));
 
-            // Sort newest to oldest
-            recentItems.sort((a, b) => b.date.localeCompare(a.date));
-            upcomingItems.sort((a, b) => b.date.localeCompare(a.date));
-
-            if (currentTab === 'recent') {
-                // DAILY: exact match to todayStr
-                const dailyItems = recentItems.filter(item => item.date === todayStr);
-                
-                // WEEKLY: clean string comparison for past 7 days up to today
-                const weeklyItems = recentItems.filter(item => item.date >= sevenDaysAgoStr && item.date <= todayStr);
-
-                // Render Daily Carousel
-                const dailyCarousel = document.getElementById('dailyCarousel');
-                const dailyEmpty = document.getElementById('dailyEmpty');
-                document.getElementById('dailyCount').textContent = dailyItems.length;
-                if (dailyItems.length === 0) {
-                    dailyCarousel.innerHTML = '';
-                    dailyCarousel.classList.add('hidden');
-                    dailyEmpty.classList.remove('hidden');
-                } else {
-                    dailyEmpty.classList.add('hidden');
-                    dailyCarousel.classList.remove('hidden');
-                    dailyCarousel.innerHTML = dailyItems.map(item => `
-                        <div class="min-w-[150px] sm:min-w-[170px] max-w-[170px] flex-shrink-0">
-                            ${renderCardHtml(item, 'Today 🔥', 'bg-red-950/90 text-red-400 border border-red-800/50')}
-                        </div>
-                    `).join('');
-                }
-
-                // Render Weekly Carousel
-                const weeklyCarousel = document.getElementById('weeklyCarousel');
-                const weeklyEmpty = document.getElementById('weeklyEmpty');
-                document.getElementById('weeklyCount').textContent = weeklyItems.length;
-                if (weeklyItems.length === 0) {
-                    weeklyCarousel.innerHTML = '';
-                    weeklyCarousel.classList.add('hidden');
-                    weeklyEmpty.classList.remove('hidden');
-                } else {
-                    weeklyEmpty.classList.add('hidden');
-                    weeklyCarousel.classList.remove('hidden');
-                    weeklyCarousel.innerHTML = weeklyItems.map(item => `
-                        <div class="min-w-[150px] sm:min-w-[170px] max-w-[170px] flex-shrink-0">
-                            ${renderCardHtml(item, 'Released', 'bg-emerald-950/90 text-emerald-400 border border-emerald-800/50')}
-                        </div>
-                    `).join('');
-                }
-
-                // Render Full Recent Grid
-                const releaseGrid = document.getElementById('releaseGrid');
-                releaseGrid.innerHTML = recentItems.map(item => renderCardHtml(item, 'Released', 'bg-emerald-950/90 text-emerald-400 border border-emerald-800/50')).join('');
-
-                if (recentItems.length === 0 && dailyItems.length === 0) {
-                    emptyState.classList.remove('hidden');
-                } else {
-                    emptyState.classList.add('hidden');
-                }
-            } else {
-                // Render Upcoming Grid
-                const upcomingGrid = document.getElementById('upcomingGrid');
-                document.getElementById('upcomingCount').textContent = upcomingItems.length;
-                upcomingGrid.innerHTML = upcomingItems.map(item => renderCardHtml(item, 'Upcoming', 'bg-amber-950/90 text-amber-400 border border-amber-800/50')).join('');
-                
-                if (upcomingItems.length === 0) {
-                    emptyState.classList.remove('hidden');
-                } else {
-                    emptyState.classList.add('hidden');
-                }
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                return;
             }
+
+            emptyState.classList.add('hidden');
+            grid.innerHTML = filtered.map(item => {
+                const isUpcoming = item.date > todayStr;
+                const statusBadgeHtml = isUpcoming
+                    ? `<span class="bg-amber-950/80 text-amber-400 border border-amber-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Upcoming</span>`
+                    : `<span class="bg-emerald-950/80 text-emerald-400 border border-emerald-800/50 text-[9px] font-mono px-2 py-0.5 rounded-full font-semibold">Released</span>`;
+
+                const artHtml = item.artUrl 
+                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
+                    : `<div class="w-full h-full bg-gradient-to-br from-zinc-900 to-black flex items-center justify-center font-mono font-extrabold text-xl text-zinc-700 tracking-tighter">${item.band.substring(0,2).toUpperCase()}</div>`;
+
+                return `
+                    <div class="bg-zinc-900/90 border border-zinc-800/80 rounded-xl overflow-hidden flex flex-col hover:border-zinc-700 transition group shadow-sm cursor-pointer" onclick="openAlbumDetail(${item.id})">
+                        <div class="relative w-full aspect-square bg-zinc-950 overflow-hidden">
+                            ${artHtml}
+                            <div class="absolute top-2 right-2">${statusBadgeHtml}</div>
+                            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                                <span class="bg-red-600 text-white text-[10px] font-bold px-2.5 py-1 rounded-full shadow-lg">View & Review</span>
+                            </div>
+                        </div>
+                        <div class="p-3 flex flex-col flex-1 justify-between">
+                            <div>
+                                <div class="flex items-center justify-between text-[10px] text-zinc-400 mb-1">
+                                    <span class="font-medium text-red-500 truncate max-w-[65%]" title="${item.genre}">${item.genre}</span>
+                                    <span class="mono">${item.date}</span>
+                                </div>
+                                <h3 class="font-bold text-white text-xs leading-tight group-hover:text-red-400 transition line-clamp-1" title="${item.band}">${item.band}</h3>
+                                <p class="text-zinc-400 text-[11px] mt-0.5 line-clamp-1" title="${item.album}">${item.album}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
         }
 
         function filterReleases() { renderReleases(); }
