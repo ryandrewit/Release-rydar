@@ -2,245 +2,221 @@
 <html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Release Rydar</title>
-    <!-- Tailwind CSS CDN -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Release Rydar - Heavy Music Radar</title>
+    <link rel="manifest" href="./manifest.json">
+    <meta name="theme-color" content="#09090b">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
-    <!-- PWA Manifest & App Icons -->
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23dc2626'/><text x='50' y='65' font-family='monospace' font-weight='900' font-size='50' fill='white' text-anchor='middle'>RR</text></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23dc2626'/><text x='50' y='65' font-family='monospace' font-weight='900' font-size='50' fill='white' text-anchor='middle'>RR</text></svg>">
-
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Outfit', sans-serif; }
+        body { font-family: 'Inter', sans-serif; }
         .mono { font-family: 'JetBrains Mono', monospace; }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
     </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-red-600 selection:text-white">
-
-    <!-- Header -->
-    <header class="border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-md sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-red-600 to-red-900 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center border border-red-500/40">
-                    <span class="text-white font-black text-base tracking-tighter mono">RR</span>
+<body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-red-600 selection:text-white pb-16">
+    <!-- App Container -->
+    <div class="max-w-4xl mx-auto px-4 py-6">
+        
+        <!-- Header -->
+        <header class="flex items-center justify-between border-b border-zinc-800 pb-5 mb-6">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center font-black mono text-xl tracking-tighter shadow-lg shadow-red-600/30">
+                    RR
                 </div>
                 <div>
-                    <h1 class="text-base sm:text-lg font-black tracking-wider uppercase text-white flex items-center gap-2">
-                        Release Rydar <span id="headerDateBadge" class="text-[10px] bg-red-600/20 text-red-500 border border-red-600/40 px-2 py-0.5 rounded-full mono">LIVE FEED</span>
+                    <h1 class="text-xl font-bold tracking-tight text-white flex items-center gap-2">
+                        Release Rydar <span class="text-xs px-2 py-0.5 rounded-full bg-red-950/80 text-red-400 border border-red-800/50 mono font-semibold">LIVE</span>
                     </h1>
+                    <p class="text-xs text-zinc-400">Autonomous Heavy Music Intelligence</p>
                 </div>
             </div>
-
-            <div class="flex items-center gap-2">
-                <button onclick="openInstallModal()" class="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 px-3 py-1.5 rounded-xl text-xs font-semibold transition cursor-pointer">
-                    <svg class="w-3.5 h-3.5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                    <span class="hidden sm:inline">Install</span>
-                </button>
-                <button onclick="shareApp()" class="flex items-center gap-1.5 bg-red-600 hover:bg-red-500 text-white px-3 py-1.5 rounded-xl text-xs font-semibold transition shadow-md shadow-red-600/20 cursor-pointer">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
-                    Share
+            <div class="flex items-center space-x-2">
+                <button onclick="loadReleases()" class="p-2 rounded-lg bg-zinc-900 border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-700 transition" title="Refresh Feed">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                 </button>
             </div>
-        </div>
-    </header>
+        </header>
 
-    <!-- Main Container -->
-    <main class="max-w-7xl mx-auto px-4 py-6 space-y-6">
-        
-        <!-- Controls Dropdown -->
-        <details class="group bg-zinc-950/60 border border-zinc-800/80 rounded-2xl backdrop-blur-sm overflow-hidden transition">
-            <summary class="px-5 py-3.5 flex items-center justify-between cursor-pointer select-none bg-zinc-900/40 hover:bg-zinc-900/70 transition">
-                <div class="flex items-center gap-2.5">
-                    <svg class="w-4 h-4 text-red-500 transition-transform group-open:rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    <span class="text-xs font-bold uppercase tracking-wider text-zinc-300 mono">Search & Release Date Filters</span>
-                </div>
-                <span class="text-[11px] text-zinc-500 mono group-open:hidden">Click to expand</span>
-            </summary>
-            
-            <div class="p-5 grid grid-cols-1 md:grid-cols-2 gap-6 border-t border-zinc-800/60">
-                <div class="space-y-2">
-                    <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Search Band / Album</label>
-                    <div class="relative">
-                        <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Type band or album..." class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-[11px] text-zinc-400 font-medium uppercase tracking-wider mono">Release Date Filter</label>
-                    <select id="dateFilter" onchange="filterReleases()" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-red-600 transition">
-                        <option value="recent" selected>Released This Week 🔥</option>
-                        <option value="upcoming">Upcoming This Month 🗓️</option>
-                        <option value="all">All November Drops</option>
-                    </select>
-                </div>
+        <!-- Status / Tab Filter Bar -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+            <div class="flex rounded-xl bg-zinc-900 p-1 border border-zinc-800/80 w-full sm:w-auto">
+                <button id="tab-recent" onclick="setTab('recent')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow">
+                    Released This Week 🔥
+                </button>
+                <button id="tab-upcoming" onclick="setTab('upcoming')" class="flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white">
+                    Upcoming This Month
+                </button>
             </div>
-        </details>
 
-        <!-- Genre Filter Pills -->
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-            <button onclick="filterGenre('All')" class="genre-btn bg-red-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20" data-genre="All">All Genres</button>
-            <button onclick="filterGenre('Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Hardcore">Hardcore</button>
-            <button onclick="filterGenre('Metalcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Metalcore">Metalcore</button>
-            <button onclick="filterGenre('Post-Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Metal">Post-Metal</button>
-            <button onclick="filterGenre('Doom Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Doom Metal">Doom Metal</button>
-            <button onclick="filterGenre('Death Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Death Metal">Death Metal</button>
-            <button onclick="filterGenre('Post-Hardcore')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Post-Hardcore">Post-Hardcore</button>
-            <button onclick="filterGenre('Math Metal')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Math Metal">Math Metal</button>
-            <button onclick="filterGenre('Djent / Prog')" class="genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap" data-genre="Djent / Prog">Djent / Prog</button>
+            <!-- Search Input -->
+            <div class="relative w-full sm:w-64">
+                <input type="text" id="searchInput" oninput="filterReleases()" placeholder="Search band or album..." class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-2 text-sm text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-red-600 transition">
+            </div>
         </div>
 
-        <!-- Releases Grid -->
-        <div id="releasesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5"></div>
-    </main>
+        <!-- Genre Pill Bar -->
+        <div class="flex overflow-x-auto pb-2 mb-6 space-x-2 scrollbar-none">
+            <button onclick="filterGenre('All')" id="genre-All" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950">
+                All Genres
+            </button>
+            <button onclick="filterGenre('Hardcore')" id="genre-Hardcore" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Hardcore
+            </button>
+            <button onclick="filterGenre('Metalcore')" id="genre-Metalcore" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Metalcore
+            </button>
+            <button onclick="filterGenre('Post-Metal')" id="genre-Post-Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Post-Metal
+            </button>
+            <button onclick="filterGenre('Doom Metal')" id="genre-Doom Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Doom Metal
+            </button>
+            <button onclick="filterGenre('Death Metal')" id="genre-Death Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Death Metal
+            </button>
+            <button onclick="filterGenre('Math Metal')" id="genre-Math Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Math Metal
+            </button>
+            <button onclick="filterGenre('Prog Metal')" id="genre-Prog Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Prog Metal
+            </button>
+            <button onclick="filterGenre('Metal')" id="genre-Metal" class="genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200">
+                Metal
+            </button>
+        </div>
 
-    <!-- Install Modal -->
-    <div id="installModal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-3xl max-w-md w-full p-6 space-y-5 shadow-2xl">
-            <div class="flex items-center justify-between">
-                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
-                    Install to Home Screen
-                </h3>
-                <button onclick="closeInstallModal()" class="text-zinc-400 hover:text-white text-xl font-bold">&times;</button>
-            </div>
-            <div class="space-y-4 text-sm text-zinc-300">
-                <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800">
-                    <p class="font-bold text-red-400 mb-1">📱 iPhone / iPad (Safari):</p>
-                    <p class="text-xs text-zinc-400">1. Open your hosted GitHub page in <span class="text-white font-semibold">Safari</span>.<br>2. Tap the <span class="text-white font-semibold">Share</span> icon.<br>3. Tap <span class="text-white font-semibold">"Add to Home Screen"</span>.</p>
-                </div>
-                <div class="p-3 bg-zinc-950 rounded-xl border border-zinc-800">
-                    <p class="font-bold text-red-400 mb-1">🤖 Android (Chrome / Pixel):</p>
-                    <p class="text-xs text-zinc-400">1. Open your hosted GitHub page in <span class="text-white font-semibold">Chrome</span>.<br>2. Tap the <span class="text-white font-semibold">three-dot menu</span> in the top right.<br>3. Tap <span class="text-white font-semibold">"Install app"</span> or <span class="text-white font-semibold">"Add to Home screen"</span>.</p>
-                </div>
-            </div>
-            <button onclick="closeInstallModal()" class="w-full bg-red-600 hover:bg-red-500 text-white font-bold py-3 rounded-xl transition cursor-pointer">Got It</button>
+        <!-- Release Grid -->
+        <div id="releaseGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Dynamically populated from releases.json -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="hidden text-center py-16">
+            <p class="text-zinc-500 text-sm">No releases found matching your criteria.</p>
         </div>
     </div>
 
-    <!-- Application Logic -->
+    <!-- Application Script -->
     <script>
-        // Register PWA Service Worker for clean native app installation (removes Chrome browser badge)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./sw.js')
-                    .then(reg => console.log('Service Worker registered!', reg))
-                    .catch(err => console.log('Service Worker registration failed:', err));
-            });
-        }
+        let allReleases = [];
+        let currentTab = 'recent';
+        let currentGenre = 'All';
 
-        const todayObj = new Date("2026-11-07");
-        document.getElementById('headerDateBadge').textContent = todayObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase();
-
-        let releasesData = [];
-        let currentGenre = "All";
-
-        async function initApp() {
+        async function loadReleases() {
             try {
-                const response = await fetch('releases.json?' + new Date().getTime());
-                releasesData = await response.json();
-                filterReleases();
-            } catch (error) {
-                console.error("Error loading live feed:", error);
-                document.getElementById('releasesGrid').innerHTML = `
-                    <div class="col-span-full py-12 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl">
-                        <p class="text-sm text-zinc-400">Failed to load live release feed.</p>
+                const response = await fetch('./releases.json?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load releases.json');
+                allReleases = await response.json();
+                renderReleases();
+            } catch (err) {
+                console.error("Error fetching releases:", err);
+                document.getElementById('releaseGrid').innerHTML = `
+                    <div class="col-span-full p-6 bg-red-950/40 border border-red-900/50 rounded-2xl text-center">
+                        <p class="text-red-400 text-sm font-medium">Could not load releases data.</p>
+                        <p class="text-zinc-500 text-xs mt-1">Make sure releases.json is in your repository root.</p>
                     </div>
                 `;
             }
+        }
+
+        function setTab(tab) {
+            currentTab = tab;
+            document.getElementById('tab-recent').className = tab === 'recent' 
+                ? 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow' 
+                : 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white';
+            document.getElementById('tab-upcoming').className = tab === 'upcoming' 
+                ? 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition bg-red-600 text-white shadow' 
+                : 'flex-1 sm:flex-none px-4 py-2 rounded-lg text-sm font-medium transition text-zinc-400 hover:text-white';
+            renderReleases();
         }
 
         function filterGenre(genre) {
             currentGenre = genre;
-            document.querySelectorAll('.genre-btn').forEach(btn => {
-                if (btn.dataset.genre === genre) {
-                    btn.className = "genre-btn bg-red-600 text-white px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap shadow-md shadow-red-600/20";
+            document.querySelectorAll('.genre-pill').forEach(btn => {
+                const isSelected = btn.textContent.trim().toLowerCase() === (genre === 'All' ? 'all genres' : genre.toLowerCase());
+                if (isSelected) {
+                    btn.className = 'genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-100 text-zinc-950';
                 } else {
-                    btn.className = "genre-btn bg-zinc-900 hover:bg-zinc-800 text-zinc-300 border border-zinc-800 px-3.5 py-2 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap";
+                    btn.className = 'genre-pill px-3.5 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition bg-zinc-900 text-zinc-400 border border-zinc-800 hover:border-zinc-700 hover:text-zinc-200';
                 }
             });
-            filterReleases();
+            renderReleases();
         }
 
-        function filterReleases() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const dateFilter = document.getElementById('dateFilter').value;
-            const grid = document.getElementById('releasesGrid');
+        function renderReleases() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('releaseGrid');
+            const emptyState = document.getElementById('emptyState');
 
-            const filtered = releasesData.filter(item => {
-                const matchesGenre = currentGenre === "All" || item.genre.toLowerCase() === currentGenre.toLowerCase();
-                const matchesSearch = item.band.toLowerCase().includes(search) || item.album.toLowerCase().includes(search);
-                
-                let matchesDate = true;
-                if (dateFilter === 'recent') {
-                    matchesDate = item.status === 'recent';
-                } else if (dateFilter === 'upcoming') {
-                    matchesDate = item.status === 'upcoming';
-                } else if (dateFilter === 'all') {
-                    matchesDate = true;
-                }
-
-                return matchesGenre && matchesSearch && matchesDate;
+            const filtered = allReleases.filter(item => {
+                const matchesTab = item.status === currentTab;
+                const matchesGenre = currentGenre === 'All' || item.genre.toLowerCase().includes(currentGenre.toLowerCase());
+                const matchesSearch = item.band.toLowerCase().includes(query) || item.album.toLowerCase().includes(query);
+                return matchesTab && matchesGenre && matchesSearch;
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full py-12 text-center bg-zinc-900/30 border border-zinc-800/80 rounded-2xl">
-                        <p class="text-sm text-zinc-400">No releases found matching your filters.</p>
-                    </div>
-                `;
+                grid.innerHTML = '';
+                emptyState.classList.remove('hidden');
                 return;
             }
 
+            emptyState.classList.add('hidden');
             grid.innerHTML = filtered.map(item => {
-                const isUpcoming = item.status === 'upcoming';
-                const hasArt = item.artUrl && item.artUrl.trim() !== "";
+                const spotifyUrl = `https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}`;
+                const artHtml = item.artUrl 
+                    ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">`
+                    : `<div class="w-full h-full bg-gradient-to-br ${item.artBg || 'from-zinc-900 to-black'} flex items-center justify-center font-mono font-extrabold text-2xl text-zinc-700 tracking-tighter">${item.icon || item.band.substring(0,2).toUpperCase()}</div>`;
 
                 return `
-                    <div class="bg-zinc-900/60 border border-zinc-800/80 rounded-2xl p-3.5 backdrop-blur-sm flex flex-col justify-between hover:border-zinc-700 transition group">
-                        <div class="flex items-start gap-3">
-                            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br ${item.artBg} border border-zinc-700/60 shrink-0 shadow-inner group-hover:scale-105 transition flex items-center justify-center relative">
-                                ${hasArt ? `<img src="${item.artUrl}" alt="${item.album}" class="w-full h-full object-cover" onerror="this.style.display='none'">` : ''}
-                                <span class="text-zinc-200 font-black text-xs tracking-wider mono ${hasArt ? 'absolute inset-0 flex items-center justify-center bg-zinc-950/80 -z-10' : ''}">${item.icon || 'RR'}</span>
-                                ${isUpcoming ? '<span class="absolute top-0.5 right-0.5 bg-amber-500 text-zinc-950 font-black text-[7px] px-1 py-0.2 rounded shadow">SOON</span>' : ''}
-                            </div>
-                            
-                            <div class="flex-1 min-w-0">
-                                <div class="flex items-center justify-between gap-1 mb-0.5">
-                                    <span class="text-[9px] mono uppercase px-1.5 py-0.5 rounded bg-zinc-950 border border-zinc-800 text-zinc-400 truncate">${item.genre}</span>
-                                    <a href="https://open.spotify.com/search/${encodeURIComponent(item.band + ' ' + item.album)}" target="_blank" class="text-[10px] font-bold bg-green-600/25 hover:bg-green-600/40 text-green-400 border border-green-600/40 px-2 py-0.5 rounded-lg transition flex items-center gap-1 shrink-0">
-                                        Spotify 🎧
-                                    </a>
-                                </div>
-                                <h3 class="font-bold text-white text-sm truncate">${item.band}</h3>
-                                <p class="text-[11px] text-zinc-400 truncate italic">${item.album}</p>
+                    <div class="bg-zinc-900/80 border border-zinc-800/80 rounded-2xl overflow-hidden flex flex-col hover:border-zinc-700 transition group">
+                        <div class="relative aspect-square bg-zinc-950 overflow-hidden">
+                            ${artHtml}
+                            <div class="absolute top-3 left-3 bg-zinc-950/80 backdrop-blur-md px-2.5 py-1 rounded-full text-[10px] font-semibold text-zinc-300 uppercase tracking-wider border border-zinc-800">
+                                ${item.type || 'Album'}
                             </div>
                         </div>
-
-                        <div class="flex items-center justify-between pt-2.5 border-t border-zinc-800/50 mt-2.5">
-                            <span class="text-[10px] mono text-zinc-500">${item.date}</span>
-                            <span class="text-[9px] mono px-2 py-0.5 rounded ${isUpcoming ? 'bg-amber-950/40 text-amber-400 border border-amber-800/50' : 'bg-zinc-950 text-zinc-400 border border-zinc-800'}">${isUpcoming ? 'Upcoming' : 'Released This Week'}</span>
+                        <div class="p-4 flex flex-col flex-1 justify-between">
+                            <div>
+                                <div class="flex items-center justify-between text-xs text-zinc-400 mb-1">
+                                    <span class="font-medium text-red-500">${item.genre}</span>
+                                    <span>${item.date}</span>
+                                </div>
+                                <h3 class="font-bold text-white text-base leading-snug group-hover:text-red-400 transition">${item.band}</h3>
+                                <p class="text-zinc-400 text-sm mt-0.5 line-clamp-1">${item.album}</p>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-zinc-800/60 flex items-center justify-between">
+                                <a href="${spotifyUrl}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center space-x-1.5 text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.6 0 12 0zm5.521 17.34c-.24.359-.72.48-1.08.24-2.999-1.8-6.78-2.22-11.22-1.24-.42.06-.84-.18-.9-.6-.06-.42.18-.84.6-.9 4.86-1.08 9.06-.6 12.48 1.56.36.24.48.72.24 1.04zm1.56-3.48c-.3.48-.9.6-1.38.3-3.42-2.1-8.58-2.71-12.6-1.48-.54.18-1.14-.12-1.32-.66-.18-.54.12-1.14.66-1.32 4.62-1.38 10.38-.72 14.34 1.74.48.3.6 1.02.3 1.42zm.12-3.66C15.24 7.92 8.82 7.68 5.16 8.82c-.66.18-1.38-.18-1.56-.84-.18-.66.18-1.38.84-1.56 4.2-1.26 11.4-0.96 15.6 1.5.6.36.78 1.14.42 1.74-.36.6-1.14.78-1.74.42z"/></svg>
+                                    <span>Spotify Search</span>
+                                </a>
+                                <span class="text-[10px] text-zinc-500 mono">${item.status.toUpperCase()}</span>
+                            </div>
                         </div>
                     </div>
                 `;
             }).join('');
         }
 
-        function openInstallModal() { document.getElementById('installModal').classList.remove('hidden'); }
-        function closeInstallModal() { document.getElementById('installModal').classList.add('hidden'); }
-        function shareApp() {
-            if (navigator.share) {
-                navigator.share({ title: 'Release Rydar', text: 'Check out daily new heavy music releases!', url: window.location.href }).catch(() => {});
-            } else {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Rydar link copied to clipboard!");
-            }
+        function filterReleases() {
+            renderReleases();
         }
 
-        window.onload = initApp;
+        // Initialize on load
+        loadReleases();
+
+        // Register Service Worker for PWA installation
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('ServiceWorker registered!', reg))
+                    .catch(err => console.log('ServiceWorker registration failed:', err));
+            });
+        }
     </script>
 </body>
 </html>
