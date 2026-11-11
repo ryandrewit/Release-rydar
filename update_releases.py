@@ -4,13 +4,13 @@ import os
 import urllib.request
 import urllib.parse
 
-print("=== Release Rydar Secure Artwork Sync (With Overrides) ===")
+print("=== Release Rydar Monthly Pruning & Sync ===")
 today = datetime.date.today()
 json_path = "releases.json"
 
-# Manual overrides for bands with common names where iTunes search fails
+# Manual artwork overrides for tricky common band names
 MANUAL_ARTWORK = {
-    "Down - Volume V": "", # Leave empty to use clean monogram badge
+    "Down - Volume V": "",
     "Meridian Veil - The Watcher": "",
 }
 
@@ -23,18 +23,37 @@ if os.path.exists(json_path):
         except Exception:
             releases = []
 
+# --- CALENDAR-MONTH PRUNING LOGIC ---
+# Keep only releases from the current calendar month onward.
+# As soon as a new month starts, previous months are automatically wiped out.
+current_year_month = (today.year, today.month)
+
+fresh_releases = []
+for item in releases:
+    try:
+        release_date = datetime.date.fromisoformat(item['date'])
+        release_year_month = (release_date.year, release_date.month)
+        
+        # Keep if release is in the current month or a future month
+        if release_year_month >= current_year_month:
+            fresh_releases.append(item)
+        else:
+            print(f"Pruned past month release: {item['band']} - {item['album']} ({item['date']})")
+    except Exception as e:
+        print(f"Skipping malformed date item: {item.get('band')} - {e}")
+
+releases = fresh_releases
+
+# --- ARTWORK ENRICHMENT ---
 for item in releases:
     band = item.get('band', '')
     album = item.get('album', '')
     lookup_key = f"{band} - {album}"
     
-    # Apply manual override if defined
     if lookup_key in MANUAL_ARTWORK:
         item['artUrl'] = MANUAL_ARTWORK[lookup_key]
-        print(f"Applied manual art override for: {lookup_key}")
         continue
 
-    # Otherwise safely fetch from iTunes only if artUrl is missing
     if not item.get("artUrl") or item.get("artUrl") == "":
         search_term = f"{band} {album}"
         api_url = f"https://itunes.apple.com/search?term={urllib.parse.quote(search_term)}&entity=album&limit=1"
@@ -51,8 +70,8 @@ for item in releases:
         except Exception as e:
             print(f"Notice: Art lookup skipped for {search_term}: {e}")
 
-# Save verified database
+# Save the clean database back to the repo
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(releases, f, indent=4)
     
-print("Sync complete. Artwork verified and locked.")
+print(f"Sync complete. Active database items for current/future months: {len(releases)}")
