@@ -167,8 +167,19 @@
         const now = new Date();
         document.getElementById('currentMonthBadge').textContent = `${months[now.getMonth()]} ${now.getFullYear()}`;
 
-        // Today's date string format: YYYY-MM-DD
-        const todayStr = now.toISOString().split('T')[0];
+        // Robust local date formatting (YYYY-MM-DD) avoiding UTC timezone shifts
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const todayStr = `${year}-${month}-${day}`;
+
+        // Calculate 7 days ago string (YYYY-MM-DD)
+        const pastDate = new Date(now);
+        pastDate.setDate(now.getDate() - 7);
+        const pYear = pastDate.getFullYear();
+        const pMonth = String(pastDate.getMonth() + 1).padStart(2, '0');
+        const pDay = String(pastDate.getDate()).padStart(2, '0');
+        const sevenDaysAgoStr = `${pYear}-${pMonth}-${pDay}`;
 
         async function loadReleases() {
             try {
@@ -264,13 +275,8 @@
                 // DAILY: exact match to todayStr
                 const dailyItems = recentItems.filter(item => item.date === todayStr);
                 
-                // WEEKLY: past 7 days up to today
-                const sevenDaysAgoObj = new Date(now);
-                sevenDaysAgoObj.setDate(now.getDate() - 7);
-                const weeklyItems = recentItems.filter(item => {
-                    const itemDate = new Date(item.date);
-                    return itemDate >= sevenDaysAgoObj && item.date <= todayStr;
-                });
+                // WEEKLY: clean string comparison for past 7 days up to today
+                const weeklyItems = recentItems.filter(item => item.date >= sevenDaysAgoStr && item.date <= todayStr);
 
                 // Render Daily Carousel
                 const dailyCarousel = document.getElementById('dailyCarousel');
@@ -412,7 +418,7 @@
                         <span class="text-xs text-zinc-500 mono">(${reviews.length})</span>
                     </h3>
                     <div id="reviewsList" class="space-y-2">
-                        ${reviews.length === 0 ? '<p class="text-zinc-500 text-xs text-center py-6 bg-zinc-900/40 rounded-xl border border-zinc-800/50">No reviews yet. Be the first to review this release!</p> : ''}
+                        ${reviews.length === 0 ? '<p class="text-zinc-500 text-xs text-center py-6 bg-zinc-900/40 rounded-xl border border-zinc-800/50">No reviews yet. Be the first to review this release!</p>' : ''}
                         ${reviews.map((rev) => {
                             const formattedDate = new Date(rev.created_at).toLocaleDateString();
                             return `
