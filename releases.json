@@ -1,5 +1,53 @@
 [
     {
+        "id": 18,
+        "band": "BLACKIE LAWLESS On Music He Has Written For Next W.A.S.P. Album",
+        "album": "'There's Parts Of It That Are Absolutely Breathtaking, And There's Parts Of It That Are Crap'",
+        "genre": "Metal / Hardcore",
+        "type": "Single/Album",
+        "date": "2026-11-11",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "BL"
+    },
+    {
+        "id": 17,
+        "band": "KITTIE To Release 'Oracle XXV', Re",
+        "album": "Recorded 25th",
+        "genre": "Metal / Hardcore",
+        "type": "Single/Album",
+        "date": "2026-11-11",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "KT"
+    },
+    {
+        "id": 16,
+        "band": "UDO DIRKSCHNEIDER Denies He Was Invited By WOLF HOFFMANN To Appear On ACCEPT's 50th",
+        "album": "Anniversary Album",
+        "genre": "Metal / Hardcore",
+        "type": "Single/Album",
+        "date": "2026-11-11",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "UD"
+    },
+    {
+        "id": 15,
+        "band": "DRAGONFORCE Releases 'Neverending Nightmare' Single From Upcoming Self",
+        "album": "Titled Album",
+        "genre": "Metal / Hardcore",
+        "type": "Single/Album",
+        "date": "2026-11-11",
+        "status": "recent",
+        "artUrl": "",
+        "artBg": "from-zinc-900 via-neutral-900 to-black",
+        "icon": "DR"
+    },
+    {
         "id": 14,
         "band": "Meridian Veil (Cryptopsy, Ex",
         "album": "The Agonist, Etc.) Launch Their Debut Single \u201cThe Watcher\u201d",
