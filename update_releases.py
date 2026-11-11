@@ -4,9 +4,15 @@ import os
 import urllib.request
 import urllib.parse
 
-print("=== Release Rydar Secure Artwork Sync ===")
+print("=== Release Rydar Secure Artwork Sync (With Overrides) ===")
 today = datetime.date.today()
 json_path = "releases.json"
+
+# Manual overrides for bands with common names where iTunes search fails
+MANUAL_ARTWORK = {
+    "Down - Volume V": "", # Leave empty to use clean monogram badge
+    "Meridian Veil - The Watcher": "",
+}
 
 # Load existing database
 releases = []
@@ -17,14 +23,20 @@ if os.path.exists(json_path):
         except Exception:
             releases = []
 
-# ONLY enrich artwork for items already explicitly defined in releases.json.
-# This script will NEVER auto-discover or add unverified bands.
 for item in releases:
+    band = item.get('band', '')
+    album = item.get('album', '')
+    lookup_key = f"{band} - {album}"
+    
+    # Apply manual override if defined
+    if lookup_key in MANUAL_ARTWORK:
+        item['artUrl'] = MANUAL_ARTWORK[lookup_key]
+        print(f"Applied manual art override for: {lookup_key}")
+        continue
+
+    # Otherwise safely fetch from iTunes only if artUrl is missing
     if not item.get("artUrl") or item.get("artUrl") == "":
-        band = item.get('band', '')
-        album = item.get('album', '')
         search_term = f"{band} {album}"
-        
         api_url = f"https://itunes.apple.com/search?term={urllib.parse.quote(search_term)}&entity=album&limit=1"
         
         try:
@@ -39,8 +51,8 @@ for item in releases:
         except Exception as e:
             print(f"Notice: Art lookup skipped for {search_term}: {e}")
 
-# Save the pristine, locked-down database back to repository
+# Save verified database
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(releases, f, indent=4)
     
-print("Sync complete. Database locked to curated entries only.")
+print("Sync complete. Artwork verified and locked.")
